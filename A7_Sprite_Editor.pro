@@ -12,12 +12,14 @@ SOURCES += \
     editingsection.cpp \
     main.cpp \
     mainwindow.cpp \
+    model.cpp \
     previewsection.cpp \
     toolsection.cpp
 
 HEADERS += \
     editingsection.h \
     mainwindow.h \
+    model.h \
     previewsection.h \
     toolsection.h
 

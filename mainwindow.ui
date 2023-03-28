@@ -17,10 +17,20 @@
    <widget class="PreviewSection" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>640</x>
       <y>10</y>
-      <width>200</width>
-      <height>200</height>
+      <width>150</width>
+      <height>150</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="EditingSection" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>10</y>
+      <width>450</width>
+      <height>450</height>
      </rect>
     </property>
    </widget>
@@ -42,6 +52,12 @@
    <class>PreviewSection</class>
    <extends>QWidget</extends>
    <header>previewsection.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>EditingSection</class>
+   <extends>QWidget</extends>
+   <header>editingsection.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
