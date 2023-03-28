@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     editingsection.cpp \
+    framelistsection.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     editingsection.h \
+    framelistsection.h \
     mainwindow.h \
     model.h \
     previewsection.h \
@@ -25,6 +27,7 @@ HEADERS += \
 
 FORMS += \
     editingsection.ui \
+    framelistsection.ui \
     mainwindow.ui \
     previewsection.ui \
     toolsection.ui

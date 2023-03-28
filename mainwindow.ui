@@ -20,7 +20,7 @@
       <x>640</x>
       <y>10</y>
       <width>150</width>
-      <height>150</height>
+      <height>200</height>
      </rect>
     </property>
    </widget>
@@ -31,6 +31,26 @@
       <y>10</y>
       <width>450</width>
       <height>450</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="FrameListSection" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>160</width>
+      <height>550</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="ToolSection" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>220</y>
+      <width>150</width>
+      <height>340</height>
      </rect>
     </property>
    </widget>
@@ -58,6 +78,18 @@
    <class>EditingSection</class>
    <extends>QWidget</extends>
    <header>editingsection.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FrameListSection</class>
+   <extends>QWidget</extends>
+   <header>framelistsection.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ToolSection</class>
+   <extends>QWidget</extends>
+   <header>toolsection.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
