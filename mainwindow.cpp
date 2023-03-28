@@ -13,9 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    ToolSection tools;
-    ui->gridLayout->addWidget(&tools, 1, 1);
 }
 
 MainWindow::~MainWindow()

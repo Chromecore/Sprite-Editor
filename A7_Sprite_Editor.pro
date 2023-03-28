@@ -12,16 +12,19 @@ SOURCES += \
     editingsection.cpp \
     main.cpp \
     mainwindow.cpp \
+    previewsection.cpp \
     toolsection.cpp
 
 HEADERS += \
     editingsection.h \
     mainwindow.h \
+    previewsection.h \
     toolsection.h
 
 FORMS += \
     editingsection.ui \
     mainwindow.ui \
+    previewsection.ui \
     toolsection.ui
 
 # Default rules for deployment.

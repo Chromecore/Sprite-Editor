@@ -14,16 +14,15 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="PreviewSection" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>590</x>
       <y>10</y>
-      <width>781</width>
-      <height>561</height>
+      <width>200</width>
+      <height>200</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -38,6 +37,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PreviewSection</class>
+   <extends>QWidget</extends>
+   <header>previewsection.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
