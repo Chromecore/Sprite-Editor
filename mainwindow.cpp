@@ -6,7 +6,6 @@ A7: Sprite Editor Implementation
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "toolsection.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     canvasSize = 32;
-
 }
 
 MainWindow::~MainWindow()

@@ -8,6 +8,7 @@ A7: Sprite Editor Implementation
 #include "ui_editingsection.h"
 #include <QMouseEvent>
 #include <QPainter>
+#include "model.h"
 
 EditingSection::EditingSection(QWidget *parent) :
     QWidget(parent),
@@ -15,8 +16,9 @@ EditingSection::EditingSection(QWidget *parent) :
 {
     ui->setupUi(this);
     // create the pixmap
-    pixmap = QPixmap(imageSize, imageSize);
-    pixmap.fill(Qt::gray);
+    //QPixmap pixmap = QPixmap(imageSize, imageSize);
+    //pixmap.fill(Qt::gray);
+    //Model::getInstance()->setCurrentPixmap(pixmap);
 }
 
 EditingSection::~EditingSection()
@@ -26,7 +28,8 @@ EditingSection::~EditingSection()
 
 void EditingSection::paintEvent(QPaintEvent *) {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, pixmap.scaled(size().width(), size().height()));
+    QPixmap* currentPixmap = Model::instance->getPixmap();
+    painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
 void EditingSection::mousePressEvent(QMouseEvent* event) {
@@ -46,17 +49,17 @@ void EditingSection::mouseMoveEvent(QMouseEvent *event){
 
 void EditingSection::colorPixel(QPoint eventPoint){
     // find the x and y pixel coordinates of the point
-    double pixelWidth = this->size().width() / imageSize;
-    double pixelHeight = this->size().height() / imageSize;
+    double pixelWidth = this->size().width() / Model::instance->getSpriteSize();
+    double pixelHeight = this->size().height() / Model::instance->getSpriteSize();
     int x = (eventPoint.x()) / pixelWidth;
     int y = (eventPoint.y()) / pixelHeight;
 
-    bool withinImageBounds = x < imageSize && x >= 0 && y < imageSize && y >= 0;
+    bool withinImageBounds = x < Model::instance->getSpriteSize() && x >= 0 && y < Model::instance->getSpriteSize() && y >= 0;
     if(!withinImageBounds) return;
 
     // update the pixel color using a painter
-    QPainter painter(&pixmap);
-    painter.setPen(currentColor);
+    QPainter painter(Model::instance->getPixmap());
+    painter.setPen(Model::instance->getColor());
     painter.drawPoint(x, y);
 
     repaint();

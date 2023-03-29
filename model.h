@@ -1,13 +1,19 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #ifndef MODEL_H
 #define MODEL_H
 #include <QImage>
+
 using std::vector;
 
 class Model
 {
 private:
-    vector<QImage> images; //images that make up sprite
-
+    vector<QPixmap> pixmaps; //images that make up sprite
     QColor currentColor; // current drawing color
     int fps;          // how fast sprite moves in preview
     bool onionSkin; //form of shadow to look at previos portions of sprite
@@ -16,9 +22,13 @@ private:
 public:
     Model();
 
-    void setImage(QImage image);
-    QImage getImage();
-    vector<QImage> getImages();
+    Model(const Model& obj) = delete;
+    static void init();
+    static Model* instance;
+
+    void setCurrentPixmap(QPixmap pixmap);
+    QPixmap* getPixmap();
+    vector<QPixmap> getPixmaps();
     void setColor(QColor color);
     QColor getColor();
     void setFPS(int fps);
