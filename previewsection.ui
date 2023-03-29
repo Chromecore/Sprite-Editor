@@ -13,7 +13,20 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QSlider" name="horizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>160</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="myLabel">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -23,7 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PreviewSection</string>
+    <string/>
    </property>
   </widget>
  </widget>

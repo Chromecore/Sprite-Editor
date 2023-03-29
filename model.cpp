@@ -1,24 +1,39 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #include "model.h"
+#include <QPainter>
+#include <qDebug>
+
+Model* Model::instance;
 
 Model::Model()
 {
-
-
-
+    spriteSize = 32;
+    QPixmap startingMap(spriteSize, spriteSize);
+    startingMap.fill(Qt::gray);
+    pixmaps.push_back(startingMap);
+    currentColor = Qt::black;
+    currentImageIndex = 0;
+}
+void Model::init(){
+    instance = new Model();
 }
 
-
-void Model::setImage(QImage image)
+void Model::setCurrentPixmap(QPixmap pixmap)
 {
-    images.at(currentImageIndex) = image;
+    pixmaps.at(currentImageIndex) = pixmap;
 }
-QImage Model::getImage()
+QPixmap* Model::getPixmap()
 {
-    return images.at(currentImageIndex);
+    return &pixmaps.at(currentImageIndex);
 }
-vector<QImage> Model::getImages()
+vector<QPixmap> Model::getPixmaps()
 {
-    return images;
+    return pixmaps;
 }
 void Model::setColor(QColor color)
 {

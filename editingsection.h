@@ -23,9 +23,6 @@ public:
 
 private:
     bool mousePressed;
-    QPixmap pixmap;
-    QColor currentColor = Qt::blue;
-    int imageSize = 32;
     Ui::EditingSection *ui;
     /// colors a pixel at a point of an event if the event happened inside the pixmap
     void colorPixel(QPoint eventPoint);
