@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #ifndef EDITINGSECTION_H
 #define EDITINGSECTION_H
 
@@ -16,7 +22,18 @@ public:
     ~EditingSection();
 
 private:
+    bool mousePressed;
+    QPixmap pixmap;
+    QColor currentColor = Qt::blue;
+    int imageSize = 32;
     Ui::EditingSection *ui;
+    /// colors a pixel at a point of an event if the event happened inside the pixmap
+    void colorPixel(QPoint eventPoint);
+protected:
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // EDITINGSECTION_H
