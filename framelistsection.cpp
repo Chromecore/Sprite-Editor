@@ -4,6 +4,7 @@
 #include "QPushButton"
 #include "QScrollArea"
 #include "QLabel"
+#include "QSize"
 #include <vector>
 
 using std::vector;
@@ -16,17 +17,24 @@ FrameListSection::FrameListSection(QWidget *parent) :
 
     QScrollArea* scrollArea = new QScrollArea(this);
     scrollArea->setWidgetResizable(true);
-    scrollArea->setFixedSize(this->size());
+    QSize sectionSize(this->size());
+    sectionSize.setHeight(sectionSize.height() - 60);
+    scrollArea->setFixedSize(sectionSize);
 
     QWidget* w = new QWidget;
     scrollArea->setWidget(w);
     QVBoxLayout* layout = new QVBoxLayout(w);
+    layout->setAlignment(Qt::AlignTop);
+
+    // get frames list from model
+    // showFrames();
 
     vector<QPushButton*> frames;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 420; i++) {
         QPushButton* button = new QPushButton(tr("frame%1").arg(i));
         button->setMinimumSize(100, 100);
+        button->setFixedSize(120, 120);
 
         frames.push_back(button);
     }
@@ -36,6 +44,8 @@ FrameListSection::FrameListSection(QWidget *parent) :
     for (auto& e : frames) {
         layout->addWidget(e);
     }
+
+    frames[2]->hide();
 
     if (frames.empty()) {
         QLabel* label = new QLabel(tr("No frames"));
