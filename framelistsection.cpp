@@ -6,6 +6,8 @@
 #include "QLabel"
 #include "QSize"
 #include <vector>
+#include "model.h"
+#include "clickablelabel.h"
 
 using std::vector;
 
@@ -29,23 +31,39 @@ FrameListSection::FrameListSection(QWidget *parent) :
     // get frames list from model
     // showFrames();
 
-    vector<QPushButton*> frames;
+//    vector<ClickableLabel*> frames1;
 
-    for (int i = 0; i < 420; i++) {
-        QPushButton* button = new QPushButton(tr("frame%1").arg(i));
-        button->setMinimumSize(100, 100);
-        button->setFixedSize(120, 120);
+    vector<QPixmap*>& frames = Model::instance->getPixmaps();
 
-        frames.push_back(button);
+    for (QPixmap* frame : frames) {
+        ClickableLabel* clickLabel = new ClickableLabel;
+        clickLabel->setMinimumSize(100, 100);
+        clickLabel->setFixedSize(120, 120);
+        clickLabel->setPixmap(frame->scaled(120, 120));
+
+        layout->addWidget(clickLabel);
     }
 
+//    QPixmap* cur = Model::instance->getPixmap();
+
+//    for (int i = 0; i < 420; i++) {
+//        ClickableLabel* clickLabel = new ClickableLabel;
+//        clickLabel->setMinimumSize(100, 100);
+//        clickLabel->setFixedSize(120, 120);
+//        clickLabel->setPixmap(cur->scaled(120, 120));
+
+////        QIcon icon(*cur);
+////        button->setIcon(icon);
+////        button->setIconSize(button->size());
+
+//        frames1.push_back(clickLabel);
+//    }
 
 
-    for (auto& e : frames) {
-        layout->addWidget(e);
-    }
 
-    frames[2]->hide();
+//    for (auto& e : frames1) {
+//        layout->addWidget(e);
+//    }
 
     if (frames.empty()) {
         QLabel* label = new QLabel(tr("No frames"));

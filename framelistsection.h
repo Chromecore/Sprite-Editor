@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::FrameListSection *ui;
+
+protected:
+
 };
 
 #endif // FRAMELISTSECTION_H

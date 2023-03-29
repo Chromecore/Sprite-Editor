@@ -9,7 +9,7 @@ PreviewSection::PreviewSection(QWidget *parent) :
 
 //    while(true)
 //    {
-//        for (QPixmap& image : model.getPixmaps())
+//        for (QPixmap& image : Model::instance->getPixmaps())
 //        {
 //            if(delay(1))
 //            {
@@ -21,7 +21,7 @@ PreviewSection::PreviewSection(QWidget *parent) :
 
 bool PreviewSection::delay(int sec)
 {
-    QTime dieTime = QTime::currentTime().addSecs(sec / model.getFPS());
+    QTime dieTime = QTime::currentTime().addSecs(sec / Model::instance->getFPS());
 
     while (QTime::currentTime() < dieTime) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
@@ -37,6 +37,6 @@ PreviewSection::~PreviewSection()
 
 void PreviewSection::on_horizontalSlider_valueChanged(int value)
 {
-    model.setFPS(value);
+    Model::instance->setFPS(value);
 }
 

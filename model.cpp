@@ -13,8 +13,9 @@ Model* Model::instance;
 Model::Model()
 {
     spriteSize = 32;
-    QPixmap startingMap(spriteSize, spriteSize);
-    startingMap.fill(Qt::gray);
+    QPixmap* startingMap = new QPixmap(spriteSize, spriteSize);
+    startingMap->fill(Qt::gray);
+//    startingMap->fill(Qt::transparent);
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
     currentImageIndex = 0;
@@ -26,15 +27,15 @@ void Model::init(){
 
 void Model::setCurrentPixmap(QPixmap pixmap)
 {
-    pixmaps.at(currentImageIndex) = pixmap;
+    pixmaps.at(currentImageIndex) = &pixmap;
 }
 
 QPixmap* Model::getPixmap()
 {
-    return &pixmaps.at(currentImageIndex);
+    return pixmaps.at(currentImageIndex);
 }
 
-vector<QPixmap> Model::getPixmaps()
+vector<QPixmap*>& Model::getPixmaps()
 {
     return pixmaps;
 }
@@ -87,4 +88,9 @@ void Model::setCurrentIndex(int i)
 void Model::saveFile()
 {
 
+}
+
+void Model::addFrame()
+{
+    pixmaps.push_back(new QPixmap(spriteSize, spriteSize));
 }

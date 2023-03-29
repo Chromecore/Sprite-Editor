@@ -13,7 +13,7 @@ using std::vector;
 class Model
 {
 private:
-    vector<QPixmap> pixmaps; // images that make up sprite
+    vector<QPixmap*> pixmaps; // images that make up sprite
     QColor currentColor; // current drawing color
     int fps;          // how fast sprite moves in preview
     bool onionSkin; // overlay previous frame of sprite
@@ -28,7 +28,7 @@ public:
 
     void setCurrentPixmap(QPixmap pixmap);
     QPixmap* getPixmap();
-    vector<QPixmap> getPixmaps();
+    std::vector<QPixmap*>& getPixmaps();
     void setColor(QColor color);
     QColor getColor();
     void setFPS(int fps);
@@ -39,6 +39,7 @@ public:
     void setSpriteSize(int size);
     void setCurrentIndex(int i);
     void saveFile();
+    void addFrame();
 
 };
 

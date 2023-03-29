@@ -15,7 +15,6 @@ class PreviewSection : public QWidget
     Q_OBJECT
 
 public:
-    Model model;
     explicit PreviewSection(QWidget *parent = nullptr);
     ~PreviewSection();
     bool delay(int sec);
