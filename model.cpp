@@ -92,5 +92,7 @@ void Model::saveFile()
 
 void Model::addFrame()
 {
-    pixmaps.push_back(new QPixmap(spriteSize, spriteSize));
+    QPixmap* newFrame = new QPixmap(spriteSize, spriteSize);
+    newFrame->fill(Qt::gray);
+    pixmaps.push_back(newFrame);
 }

@@ -2,6 +2,8 @@
 #define FRAMELISTSECTION_H
 
 #include <QWidget>
+#include <QScrollArea>
+#include <QVBoxLayout>
 
 namespace Ui {
 class FrameListSection;
@@ -15,10 +17,13 @@ public:
     explicit FrameListSection(QWidget *parent = nullptr);
     ~FrameListSection();
 
+public slots:
+    void addFrame();
+
 private:
     Ui::FrameListSection *ui;
-
-protected:
+    QScrollArea* scrollArea;
+    QVBoxLayout* layout;
 
 };
 
