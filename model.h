@@ -6,13 +6,13 @@ using std::vector;
 class Model
 {
 private:
-    vector<QImage> images; //images that make up sprite
+    static vector<QImage> images; //images that make up sprite
 
-    QColor currentColor; // current drawing color
-    int fps;          // how fast sprite moves in preview
-    bool onionSkin; //form of shadow to look at previos portions of sprite
-    int spriteSize; //size of canvas
-    int currentImageIndex = 0; // current index of the image in canvas
+    static QColor currentColor; // current drawing color
+    static int fps;          // how fast sprite moves in preview
+    static bool onionSkin; //form of shadow to look at previos portions of sprite
+    static int spriteSize; //size of canvas
+    static int currentImageIndex; // current index of the image in canvas
 public:
     Model();
 
