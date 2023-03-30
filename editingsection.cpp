@@ -32,6 +32,14 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
     mousePressed = true;
     // colors the first pixel before the mouse stars moving
     colorPixel(event->pos());
+
+    // Change color to blackground color to erase with right click
+    if(event->button()==Qt::RightButton){
+        Model::instance->setColor(Qt::gray);
+    }
+    else{
+        Model::instance->setColor(Qt::black);
+    }
 }
 
 void EditingSection::mouseReleaseEvent(QMouseEvent*){
