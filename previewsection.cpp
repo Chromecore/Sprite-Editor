@@ -1,33 +1,25 @@
 #include "previewsection.h"
 #include "ui_previewsection.h"
-
+#include <QTimer>
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PreviewSection)
 {
     ui->setupUi(this);
 
-//    while(true)
-//    {
-//        for (QPixmap& image : Model::instance->getPixmaps())
-//        {
-//            if(delay(1))
-//            {
-//                ui->myLabel->setPixmap(image);
-//            }
-//        }
-//    }
+    int fps = Model::instance -> getFPS() + 1;
+    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
+
+
 }
 
-bool PreviewSection::delay(int sec)
+void PreviewSection::showImage()
 {
-    QTime dieTime = QTime::currentTime().addSecs(sec / Model::instance->getFPS());
-
-    while (QTime::currentTime() < dieTime) {
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-    }
-
-    return true;
+    int fps = Model::instance -> getFPS() +1 ;
+    QPixmap pixmap = Model::instance -> getNextPreview();
+    ui->myLabel->setPixmap(pixmap);
+    ui->myLabel->setMask(pixmap.mask());
+    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 
 PreviewSection::~PreviewSection()

@@ -19,6 +19,7 @@ Model::Model()
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
     currentImageIndex = 0;
+    previewIndex = 0;
 }
 
 void Model::init(){
@@ -111,4 +112,11 @@ bool Model::removeFrame()
 
     pixmaps.pop_back();
     return true;
+}
+
+QPixmap Model::getNextPreview()
+{
+    previewIndex++;
+    previewIndex = previewIndex % pixmaps.size();
+    return *pixmaps[previewIndex];
 }

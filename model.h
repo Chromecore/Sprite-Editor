@@ -19,6 +19,7 @@ private:
     bool onionSkin; // overlay previous frame of sprite
     int spriteSize; // size of canvas
     int currentImageIndex = 0; // current index of the image in canvas
+    int previewIndex;
 public:
     Model();
 
@@ -41,7 +42,7 @@ public:
     void saveFile();
     void addFrame();
     bool removeFrame();
-
+    QPixmap getNextPreview();
 };
 
 #endif // MODEL_H

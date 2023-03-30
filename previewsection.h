@@ -17,7 +17,7 @@ class PreviewSection : public QWidget
 public:
     explicit PreviewSection(QWidget *parent = nullptr);
     ~PreviewSection();
-    bool delay(int sec);
+    void showImage();
 
 private slots:
     void on_horizontalSlider_valueChanged(int value);
