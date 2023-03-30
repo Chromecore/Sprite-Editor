@@ -24,7 +24,10 @@ EditingSection::~EditingSection()
 
 void EditingSection::paintEvent(QPaintEvent *) {
     QPainter painter(this);
+
     QPixmap* currentPixmap = Model::instance->getPixmap();
+    if(currentPixmap == nullptr) return;
+
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
@@ -32,6 +35,14 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
     mousePressed = true;
     // colors the first pixel before the mouse stars moving
     colorPixel(event->pos());
+
+    // Change color to transparent to erase with right click
+    if(event->button()==Qt::RightButton){
+        Model::instance->setColor(Qt::transparent);
+    }
+    else{
+        Model::instance->setColor(Qt::black);
+    }
 }
 
 void EditingSection::mouseReleaseEvent(QMouseEvent*){
@@ -54,9 +65,17 @@ void EditingSection::colorPixel(QPoint eventPoint){
     if(!withinImageBounds) return;
 
     // update the pixel color using a painter
-    QPainter painter(Model::instance->getPixmap());
+    QPixmap* currentPixmap = Model::instance->getPixmap();
+    if(currentPixmap == nullptr) return;
+    QPainter painter(currentPixmap);
+
+    // erase if the color should be transparent
+    if(Model::instance->getColor() == Qt::transparent){
+        painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    }
     painter.setPen(Model::instance->getColor());
     painter.drawPoint(x, y);
+    emit Model::instance->updatedCurrentPixmap();
 
     repaint();
 }

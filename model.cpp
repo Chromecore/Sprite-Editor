@@ -10,15 +10,15 @@ A7: Sprite Editor Implementation
 
 Model* Model::instance;
 
-Model::Model()
+Model::Model(QObject *parent) : QObject(parent)
 {
     spriteSize = 32;
     QPixmap* startingMap = new QPixmap(spriteSize, spriteSize);
-//    startingMap->fill(Qt::gray);
     startingMap->fill(Qt::transparent);
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
     currentImageIndex = 0;
+    previewIndex = 0;
 }
 
 void Model::init(){
@@ -81,11 +81,11 @@ int Model::getSpriteSize()
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
-//    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
-//    newcurrentPixmap->fill(Qt::gray);
-//    pixmaps.push_back(newcurrentPixmap);
-//    delete (getPixmap());
-//    setCurrentPixmap(newcurrentPixmap);
+    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
+    newcurrentPixmap->fill(Qt::transparent);
+    pixmaps.push_back(newcurrentPixmap);
+    delete (getPixmap());
+    setCurrentPixmap(newcurrentPixmap);
 }
 
 void Model::setCurrentIndex(int i)
@@ -116,4 +116,11 @@ bool Model::removeFrame()
     pixmaps.pop_back();
     delete removed;
     return true;
+}
+
+QPixmap Model::getNextPreview()
+{
+    previewIndex++;
+    previewIndex = previewIndex % pixmaps.size();
+    return *pixmaps[previewIndex];
 }

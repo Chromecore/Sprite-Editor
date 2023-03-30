@@ -1,2 +1,6 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/Icon">
+        <file>Resources/Eyedropper Icon.png</file>
+        <file>Resources/Mirror Icon.png</file>
+    </qresource>
+</RCC>

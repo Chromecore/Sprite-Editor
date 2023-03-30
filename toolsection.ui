@@ -13,17 +13,42 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="EyedropButton">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>150</width>
-     <height>340</height>
+     <x>30</x>
+     <y>140</y>
+     <width>91</width>
+     <height>91</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Tools</string>
+    <string/>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="MirrorButton">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>240</y>
+     <width>91</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
