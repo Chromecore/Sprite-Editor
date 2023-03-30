@@ -39,6 +39,44 @@
     <string>Remove Frame</string>
    </property>
   </widget>
+  <widget class="QLabel" name="spriteSizeLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>470</y>
+     <width>70</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sprite Size:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="spriteSizeComboBox">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>470</y>
+     <width>70</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>32 x 32</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>16 x 16</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8 x 8</string>
+    </property>
+   </item>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -14,8 +14,8 @@ Model::Model()
 {
     spriteSize = 32;
     QPixmap* startingMap = new QPixmap(spriteSize, spriteSize);
-    startingMap->fill(Qt::gray);
-//    startingMap->fill(Qt::transparent);
+//    startingMap->fill(Qt::gray);
+    startingMap->fill(Qt::transparent);
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
     currentImageIndex = 0;
@@ -32,6 +32,9 @@ void Model::setCurrentPixmap(QPixmap* pixmap)
 
 QPixmap* Model::getPixmap()
 {
+    if (pixmaps.empty())
+        return nullptr;
+
     return pixmaps.at(currentImageIndex);
 }
 
@@ -78,11 +81,11 @@ int Model::getSpriteSize()
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
-    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
-    newcurrentPixmap->fill(Qt::gray);
-    pixmaps.push_back(newcurrentPixmap);
-    delete (getPixmap());
-    setCurrentPixmap(newcurrentPixmap);
+//    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
+//    newcurrentPixmap->fill(Qt::gray);
+//    pixmaps.push_back(newcurrentPixmap);
+//    delete (getPixmap());
+//    setCurrentPixmap(newcurrentPixmap);
 }
 
 void Model::setCurrentIndex(int i)
@@ -105,10 +108,12 @@ void Model::addFrame()
 // Returns true if a frame was removed, false otherwise
 bool Model::removeFrame()
 {
-    if ((int)pixmaps.size() == 0) {
+    if (pixmaps.empty()) {
         return false;
     }
 
+    QPixmap* removed = pixmaps.at(pixmaps.size() - 1);
     pixmaps.pop_back();
+    delete removed;
     return true;
 }

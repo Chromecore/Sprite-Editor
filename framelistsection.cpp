@@ -21,7 +21,7 @@ FrameListSection::FrameListSection(QWidget *parent) :
     scrollArea->setWidgetResizable(true);
 
     QSize sectionSize(this->size());
-    sectionSize.setHeight(sectionSize.height() - 60);
+    sectionSize.setHeight(sectionSize.height() - 90);
     scrollArea->setFixedSize(sectionSize);
 
     widget = new QWidget;
@@ -73,6 +73,21 @@ void FrameListSection::addFrame() {
     if (frames.size() == 0) {
         layout->removeWidget(noFramesLabel);
         delete noFramesLabel;
+
+        switch (ui->spriteSizeComboBox->currentIndex()) {
+            case 0:
+                Model::instance->setSpriteSize(32);
+                break;
+            case 1:
+                Model::instance->setSpriteSize(16);
+                break;
+            case 2:
+                Model::instance->setSpriteSize(8);
+                break;
+            default:
+                Model::instance->setSpriteSize(32);
+                break;
+        }
     }
 
     vector<QPixmap*> pixmaps = Model::instance->getPixmaps();
@@ -85,6 +100,9 @@ void FrameListSection::addFrame() {
 
     layout->addWidget(clickLabel);
     frames.push_back(clickLabel);
+
+    ui->removeFrameButton->setEnabled(true);
+    ui->spriteSizeComboBox->setDisabled(true);
 }
 
 void FrameListSection::removeFrame() {
@@ -101,6 +119,8 @@ void FrameListSection::removeFrame() {
     if (frames.empty()) {
         noFramesLabel = new QLabel(tr("No frames"));
         layout->addWidget(noFramesLabel);
+        ui->removeFrameButton->setDisabled(true);
+        ui->spriteSizeComboBox->setEnabled(true);
     }
 }
 
