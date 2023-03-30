@@ -6,6 +6,7 @@ A7: Sprite Editor Implementation
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "model.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,22 +37,8 @@ void MainWindow::on_spriteSizeComboBox_currentIndexChanged(int index)
         ui->confirmCanvasSizeButton->setEnabled(false);
     }
     else{
-        switch (index){
-            case 1:
-                canvasSize = 8;
-                break;
-            case 2:
-                canvasSize = 16;
-                break;
-            case 3:
-                canvasSize = 32;
-                break;
-            default:
-                canvasSize = 32;
-                break;
-        }
+        Model::instance->setSpriteSize(index * 8);
         ui->confirmCanvasSizeButton->setEnabled(true);
     }
-
 }
 

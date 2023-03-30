@@ -25,9 +25,9 @@ void Model::init(){
     instance = new Model();
 }
 
-void Model::setCurrentPixmap(QPixmap pixmap)
+void Model::setCurrentPixmap(QPixmap* pixmap)
 {
-    pixmaps.at(currentImageIndex) = &pixmap;
+    pixmaps.at(currentImageIndex) = pixmap;
 }
 
 QPixmap* Model::getPixmap()
@@ -78,6 +78,11 @@ int Model::getSpriteSize()
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
+    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
+    newcurrentPixmap->fill(Qt::gray);
+    pixmaps.push_back(newcurrentPixmap);
+    delete (getPixmap());
+    setCurrentPixmap(newcurrentPixmap);
 }
 
 void Model::setCurrentIndex(int i)

@@ -15,10 +15,6 @@ EditingSection::EditingSection(QWidget *parent) :
     ui(new Ui::EditingSection)
 {
     ui->setupUi(this);
-    // create the pixmap
-    //QPixmap pixmap = QPixmap(imageSize, imageSize);
-    //pixmap.fill(Qt::gray);
-    //Model::getInstance()->setCurrentPixmap(pixmap);
 }
 
 EditingSection::~EditingSection()

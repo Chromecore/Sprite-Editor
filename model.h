@@ -26,7 +26,7 @@ public:
     static void init();
     static Model* instance;
 
-    void setCurrentPixmap(QPixmap pixmap);
+    void setCurrentPixmap(QPixmap* pixmap);
     QPixmap* getPixmap();
     std::vector<QPixmap*>& getPixmaps();
     void setColor(QColor color);
