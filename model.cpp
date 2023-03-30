@@ -52,7 +52,7 @@ QColor Model::getColor()
 
 void Model::setFPS(int fps)
 {
-    this -> fps = fps;
+    this->fps = fps;
 }
 
 int Model::getFPS()

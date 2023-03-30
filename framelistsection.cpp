@@ -37,8 +37,8 @@ FrameListSection::FrameListSection(QWidget *parent) :
         ClickableLabel* clickLabel = new ClickableLabel;
         clickLabel->setMinimumSize(100, 100);
         clickLabel->setFixedSize(120, 120);
-        clickLabel->setPixmap(pixmap->scaled(118, 118));
-        clickLabel->setLineWidth(2);
+        clickLabel->setPixmap(pixmap->scaled(120, 120));
+        clickLabel->setLineWidth(1);
         clickLabel->setFrameStyle(1);
 
         layout->addWidget(clickLabel);
@@ -46,8 +46,8 @@ FrameListSection::FrameListSection(QWidget *parent) :
     }
 
     if (frames.empty()) {
-        QLabel* label = new QLabel(tr("No frames"));
-        layout->addWidget(label);
+        noFramesLabel = new QLabel(tr("No frames"));
+        layout->addWidget(noFramesLabel);
     }
 
     connect(ui->addFrameButton,
@@ -70,12 +70,17 @@ void FrameListSection::addFrame() {
 
     Model::instance->addFrame();
 
+    if (frames.size() == 0) {
+        layout->removeWidget(noFramesLabel);
+        delete noFramesLabel;
+    }
+
     vector<QPixmap*> pixmaps = Model::instance->getPixmaps();
     ClickableLabel* clickLabel = new ClickableLabel;
     clickLabel->setMinimumSize(100, 100);
     clickLabel->setFixedSize(120, 120);
-    clickLabel->setPixmap(pixmaps.at(pixmaps.size() - 1)->scaled(118, 118));
-    clickLabel->setLineWidth(2);
+    clickLabel->setPixmap(pixmaps.at(pixmaps.size() - 1)->scaled(120, 120));
+    clickLabel->setLineWidth(1);
     clickLabel->setFrameStyle(1);
 
     layout->addWidget(clickLabel);
@@ -92,5 +97,10 @@ void FrameListSection::removeFrame() {
     layout->removeWidget(frame);
     frames.pop_back();
     delete frame;
+
+    if (frames.empty()) {
+        noFramesLabel = new QLabel(tr("No frames"));
+        layout->addWidget(noFramesLabel);
+    }
 }
 
