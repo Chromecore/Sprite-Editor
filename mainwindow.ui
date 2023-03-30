@@ -54,21 +54,24 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>280</x>
       <y>470</y>
-      <width>251</width>
-      <height>26</height>
+      <width>306</width>
+      <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QComboBox" name="spriteSizeComboBox">
+       <property name="currentText">
+        <string>32 x 32 Pixels</string>
+       </property>
        <item>
         <property name="text">
-         <string>Please Select Canvas Size</string>
+         <string>32 x 32 Pixels</string>
         </property>
        </item>
        <item>
@@ -107,7 +110,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
