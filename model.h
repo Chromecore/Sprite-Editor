@@ -6,12 +6,15 @@ A7: Sprite Editor Implementation
 
 #ifndef MODEL_H
 #define MODEL_H
+#include <QObject>
 #include <QImage>
 
 using std::vector;
 
-class Model
+class Model : public QObject
 {
+    Q_OBJECT
+
 private:
     vector<QPixmap*> pixmaps; // images that make up sprite
     QColor currentColor; // current drawing color
@@ -21,7 +24,7 @@ private:
     int currentImageIndex = 0; // current index of the image in canvas
     int previewIndex;
 public:
-    Model();
+    explicit Model(QObject *parent = nullptr);
 
     Model(const Model& obj) = delete;
     static void init();
@@ -43,6 +46,8 @@ public:
     void addFrame();
     bool removeFrame();
     QPixmap getNextPreview();
+signals:
+    void updatedCurrentPixmap();
 };
 
 #endif // MODEL_H

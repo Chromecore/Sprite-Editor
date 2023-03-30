@@ -24,7 +24,10 @@ EditingSection::~EditingSection()
 
 void EditingSection::paintEvent(QPaintEvent *) {
     QPainter painter(this);
+
     QPixmap* currentPixmap = Model::instance->getPixmap();
+    if(currentPixmap == nullptr) return;
+
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
@@ -62,13 +65,17 @@ void EditingSection::colorPixel(QPoint eventPoint){
     if(!withinImageBounds) return;
 
     // update the pixel color using a painter
-    QPainter painter(Model::instance->getPixmap());
+    QPixmap* currentPixmap = Model::instance->getPixmap();
+    if(currentPixmap == nullptr) return;
+    QPainter painter(currentPixmap);
+
     // erase if the color should be transparent
     if(Model::instance->getColor() == Qt::transparent){
         painter.setCompositionMode(QPainter::CompositionMode_Clear);
     }
     painter.setPen(Model::instance->getColor());
     painter.drawPoint(x, y);
+    emit Model::instance->updatedCurrentPixmap();
 
     repaint();
 }

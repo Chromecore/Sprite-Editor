@@ -10,7 +10,7 @@ A7: Sprite Editor Implementation
 
 Model* Model::instance;
 
-Model::Model()
+Model::Model(QObject *parent) : QObject(parent)
 {
     spriteSize = 32;
     QPixmap* startingMap = new QPixmap(spriteSize, spriteSize);
@@ -79,7 +79,7 @@ void Model::setSpriteSize(int size)
 {
     spriteSize = size;
     QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
-    newcurrentPixmap->fill(Qt::gray);
+    newcurrentPixmap->fill(Qt::transparent);
     pixmaps.push_back(newcurrentPixmap);
     delete (getPixmap());
     setCurrentPixmap(newcurrentPixmap);

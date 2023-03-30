@@ -6,7 +6,7 @@ A7: Sprite Editor Implementation
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "model.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

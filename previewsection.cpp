@@ -1,16 +1,22 @@
 #include "previewsection.h"
 #include "ui_previewsection.h"
 #include <QTimer>
+#include <QDebug>
+#include "model.h"
+
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PreviewSection)
 {
     ui->setupUi(this);
 
+//    connect(Model::instance,
+//                    &Model::updatedCurrentPixmap,
+//                    this,
+//                    &PreviewSection::test);
+
     int fps = Model::instance -> getFPS() + 1;
     QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
-
-
 }
 
 void PreviewSection::showImage()
