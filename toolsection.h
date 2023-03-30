@@ -15,6 +15,11 @@ public:
     explicit ToolSection(QWidget *parent = nullptr);
     ~ToolSection();
 
+private slots:
+    void on_EyedropButton_toggled(bool checked);
+
+    void on_MirrorButton_toggled(bool checked);
+
 private:
     Ui::ToolSection *ui;
 };
