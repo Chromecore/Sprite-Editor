@@ -33,9 +33,9 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
     // colors the first pixel before the mouse stars moving
     colorPixel(event->pos());
 
-    // Change color to blackground color to erase with right click
+    // Change color to transparent to erase with right click
     if(event->button()==Qt::RightButton){
-        Model::instance->setColor(Qt::gray);
+        Model::instance->setColor(Qt::transparent);
     }
     else{
         Model::instance->setColor(Qt::black);
@@ -63,6 +63,10 @@ void EditingSection::colorPixel(QPoint eventPoint){
 
     // update the pixel color using a painter
     QPainter painter(Model::instance->getPixmap());
+    // erase if the color should be transparent
+    if(Model::instance->getColor() == Qt::transparent){
+        painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    }
     painter.setPen(Model::instance->getColor());
     painter.drawPoint(x, y);
 

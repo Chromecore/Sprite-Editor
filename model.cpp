@@ -14,8 +14,7 @@ Model::Model()
 {
     spriteSize = 32;
     QPixmap* startingMap = new QPixmap(spriteSize, spriteSize);
-    startingMap->fill(Qt::gray);
-//    startingMap->fill(Qt::transparent);
+    startingMap->fill(Qt::transparent);
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
     currentImageIndex = 0;
