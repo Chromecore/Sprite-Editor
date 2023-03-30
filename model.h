@@ -40,6 +40,7 @@ public:
     void setCurrentIndex(int i);
     void saveFile();
     void addFrame();
+    bool removeFrame();
 
 };
 

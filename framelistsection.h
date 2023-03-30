@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QVBoxLayout>
+#include "clickablelabel.h"
+#include <vector>
+
+using std::vector;
 
 namespace Ui {
 class FrameListSection;
@@ -19,11 +23,14 @@ public:
 
 public slots:
     void addFrame();
+    void removeFrame();
 
 private:
     Ui::FrameListSection *ui;
     QScrollArea* scrollArea;
     QVBoxLayout* layout;
+    QWidget* widget;
+    vector<ClickableLabel*> frames;
 
 };
 

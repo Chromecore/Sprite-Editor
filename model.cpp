@@ -96,3 +96,14 @@ void Model::addFrame()
     newFrame->fill(Qt::gray);
     pixmaps.push_back(newFrame);
 }
+
+// Returns true if a frame was removed, false otherwise
+bool Model::removeFrame()
+{
+    if ((int)pixmaps.size() == 0) {
+        return false;
+    }
+
+    pixmaps.pop_back();
+    return true;
+}

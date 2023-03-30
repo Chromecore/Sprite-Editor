@@ -24,23 +24,25 @@ FrameListSection::FrameListSection(QWidget *parent) :
     sectionSize.setHeight(sectionSize.height() - 60);
     scrollArea->setFixedSize(sectionSize);
 
-    QWidget* widget = new QWidget;
+    widget = new QWidget;
     scrollArea->setWidget(widget);
 
+    // set up layout
     layout = new QVBoxLayout(widget);
     layout->setAlignment(Qt::AlignTop);
 
-    vector<QPixmap*>& frames = Model::instance->getPixmaps();
+    vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
 
-    for (QPixmap* frame : frames) {
+    for (QPixmap* pixmap : pixmaps) {
         ClickableLabel* clickLabel = new ClickableLabel;
         clickLabel->setMinimumSize(100, 100);
         clickLabel->setFixedSize(120, 120);
-        clickLabel->setPixmap(frame->scaled(118, 118));
+        clickLabel->setPixmap(pixmap->scaled(118, 118));
         clickLabel->setLineWidth(2);
         clickLabel->setFrameStyle(1);
 
         layout->addWidget(clickLabel);
+        frames.push_back(clickLabel);
     }
 
     if (frames.empty()) {
@@ -52,6 +54,11 @@ FrameListSection::FrameListSection(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &FrameListSection::addFrame);
+
+    connect(ui->removeFrameButton,
+            &QPushButton::clicked,
+            this,
+            &FrameListSection::removeFrame);
 }
 
 FrameListSection::~FrameListSection()
@@ -63,12 +70,27 @@ void FrameListSection::addFrame() {
 
     Model::instance->addFrame();
 
-    vector<QPixmap*> frames = Model::instance->getPixmaps();
+    vector<QPixmap*> pixmaps = Model::instance->getPixmaps();
     ClickableLabel* clickLabel = new ClickableLabel;
     clickLabel->setMinimumSize(100, 100);
     clickLabel->setFixedSize(120, 120);
-    clickLabel->setPixmap(frames.at(frames.size() - 1)->scaled(118, 118));
+    clickLabel->setPixmap(pixmaps.at(pixmaps.size() - 1)->scaled(118, 118));
     clickLabel->setLineWidth(2);
     clickLabel->setFrameStyle(1);
+
     layout->addWidget(clickLabel);
+    frames.push_back(clickLabel);
 }
+
+void FrameListSection::removeFrame() {
+    bool removed = Model::instance->removeFrame();
+
+    if (!removed)
+        return;
+
+    ClickableLabel* frame = frames.at(frames.size() - 1);
+    layout->removeWidget(frame);
+    frames.pop_back();
+    delete frame;
+}
+
