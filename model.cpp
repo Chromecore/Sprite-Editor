@@ -83,9 +83,12 @@ void Model::setSpriteSize(int size)
     spriteSize = size;
     QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
     newcurrentPixmap->fill(Qt::transparent);
+
+    QPixmap* oldPixmap = pixmaps.at(pixmaps.size() - 1);
+    pixmaps.pop_back();
+    delete oldPixmap;
+
     pixmaps.push_back(newcurrentPixmap);
-    delete (getPixmap());
-    setCurrentPixmap(newcurrentPixmap);
 }
 
 void Model::setCurrentIndex(int i)
@@ -101,7 +104,7 @@ void Model::saveFile()
 void Model::addFrame()
 {
     QPixmap* newFrame = new QPixmap(spriteSize, spriteSize);
-    newFrame->fill(Qt::gray);
+    newFrame->fill(Qt::transparent);
     pixmaps.push_back(newFrame);
 }
 

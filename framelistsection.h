@@ -25,6 +25,9 @@ public slots:
     void addFrame();
     void removeFrame();
 
+private slots:
+    void spriteSizeComboBoxIndexChanged(int index);
+
 private:
     Ui::FrameListSection *ui;
     QScrollArea* scrollArea;

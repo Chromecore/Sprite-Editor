@@ -31,6 +31,8 @@ FrameListSection::FrameListSection(QWidget *parent) :
     layout = new QVBoxLayout(widget);
     layout->setAlignment(Qt::AlignTop);
 
+    ui->removeFrameButton->setDisabled(true);
+
     vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
 
     for (QPixmap* pixmap : pixmaps) {
@@ -59,6 +61,11 @@ FrameListSection::FrameListSection(QWidget *parent) :
             &QPushButton::clicked,
             this,
             &FrameListSection::removeFrame);
+
+    connect(ui->spriteSizeComboBox,
+            &QComboBox::currentIndexChanged,
+            this,
+            &FrameListSection::spriteSizeComboBoxIndexChanged);
 }
 
 FrameListSection::~FrameListSection()
@@ -116,11 +123,46 @@ void FrameListSection::removeFrame() {
     frames.pop_back();
     delete frame;
 
-    if (frames.empty()) {
-        noFramesLabel = new QLabel(tr("No frames"));
-        layout->addWidget(noFramesLabel);
+    if (frames.size() == 1) {
+//        noFramesLabel = new QLabel(tr("No frames"));
+//        layout->addWidget(noFramesLabel);
         ui->removeFrameButton->setDisabled(true);
         ui->spriteSizeComboBox->setEnabled(true);
     }
+}
+
+
+void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
+{
+    switch (index) {
+        case 0:
+            Model::instance->setSpriteSize(32);
+            break;
+        case 1:
+            Model::instance->setSpriteSize(16);
+            break;
+        case 2:
+            Model::instance->setSpriteSize(8);
+            break;
+        default:
+            Model::instance->setSpriteSize(32);
+            break;
+    }
+
+    ClickableLabel* frame = frames.at(frames.size() - 1);
+    layout->removeWidget(frame);
+    frames.pop_back();
+    delete frame;
+
+    vector<QPixmap*> pixmaps = Model::instance->getPixmaps();
+    ClickableLabel* clickLabel = new ClickableLabel;
+    clickLabel->setMinimumSize(100, 100);
+    clickLabel->setFixedSize(120, 120);
+    clickLabel->setPixmap(pixmaps.at(pixmaps.size() - 1)->scaled(120, 120));
+    clickLabel->setLineWidth(1);
+    clickLabel->setFrameStyle(1);
+
+    layout->addWidget(clickLabel);
+    frames.push_back(clickLabel);
 }
 

@@ -21,13 +21,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_confirmCanvasSizeButton_clicked();
-    void on_spriteSizeComboBox_currentIndexChanged(int index);
-
-
 private:
     Ui::MainWindow *ui;
-    int canvasSize;
+//    int canvasSize;
 };
 #endif // MAINWINDOW_H
