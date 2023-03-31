@@ -75,6 +75,10 @@ void EditingSection::colorPixel(QPoint eventPoint){
     }
     painter.setPen(Model::instance->getColor());
     painter.drawPoint(x, y);
+    if (Model::instance->getMirroring()){
+        //Essentially, gets opposite coord of X axis by subtracting current x position from sprite size.
+        painter.drawPoint(Model::instance->getSpriteSize()-x, y);
+    }
     emit Model::instance->updatedCurrentPixmap();
 
     repaint();
