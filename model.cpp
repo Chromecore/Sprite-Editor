@@ -5,6 +5,7 @@ A7: Sprite Editor Implementation
 */
 
 #include "model.h"
+#include "toolsection.h"
 #include <QPainter>
 #include <qDebug>
 
@@ -21,6 +22,7 @@ Model::Model(QObject *parent) : QObject(parent)
     currentImageIndex = 0;
     previewIndex = 0;
     mirroring = false;
+    eyedropActive = false;
 
 }
 
@@ -161,3 +163,4 @@ void Model::setEyedropActive(bool is)
 {
     eyedropActive = is;
 }
+

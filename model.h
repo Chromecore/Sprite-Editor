@@ -51,13 +51,13 @@ public:
     void setCurrentIndex(int i);
     void setMirroring(bool is);
     void setEyedropActive(bool is);
-
     void saveFile();
     void addFrame();
     bool removeFrame();
     QPixmap getNextPreview();
 signals:
     void updatedCurrentPixmap();
+    void eyeDropToolUsed();
 };
 
 #endif // MODEL_H

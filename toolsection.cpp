@@ -38,6 +38,7 @@ ToolSection::~ToolSection()
 void ToolSection::on_EyedropButton_toggled(bool checked)
 {
     Model::instance->setEyedropActive(checked);
+    ui->ColorButton->setEnabled(!checked);
 }
 
 
@@ -58,3 +59,9 @@ void ToolSection::on_ColorButton_clicked()
     }
 }
 
+void ToolSection::eyedropperUsed(){
+    Model::instance->setEyedropActive(false);
+    //ui->EyedropButton->setDown(false);
+    QString qss = QString("background-color: %1").arg(Model::instance->getColor().name());
+    //ui->ColorButton->setStyleSheet(qss);
+}

@@ -14,6 +14,8 @@ class ToolSection : public QWidget
 public:
     explicit ToolSection(QWidget *parent = nullptr);
     ~ToolSection();
+    void eyedropperUsed();
+
 
 private slots:
     void on_EyedropButton_toggled(bool checked);
