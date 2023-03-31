@@ -20,6 +20,8 @@ private slots:
 
     void on_MirrorButton_toggled(bool checked);
 
+    void on_ColorButton_clicked();
+
 private:
     Ui::ToolSection *ui;
 };

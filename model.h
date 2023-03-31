@@ -18,6 +18,7 @@ class Model : public QObject
 private:
     vector<QPixmap*> pixmaps; // images that make up sprite
     QColor currentColor; // current drawing color
+    QColor storedColor; // last color stored internally to be referenced as needed
     int fps;          // how fast sprite moves in preview
     bool onionSkin; // overlay previous frame of sprite
     int spriteSize; // size of canvas
@@ -36,7 +37,9 @@ public:
     QPixmap* getPixmap();
     std::vector<QPixmap*>& getPixmaps();
     void setColor(QColor color);
+    void setStoredColor(QColor color);
     QColor getColor();
+    QColor getStoredColor();
     void setFPS(int fps);
     int getFPS();
     bool isOnionSkin();

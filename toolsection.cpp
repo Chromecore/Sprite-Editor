@@ -1,6 +1,7 @@
 #include "toolsection.h"
 #include "ui_toolsection.h"
 #include "model.h"
+#include <QColorDialog>
 
 ToolSection::ToolSection(QWidget *parent) :
     QWidget(parent),
@@ -17,6 +18,16 @@ ToolSection::ToolSection(QWidget *parent) :
     ui->EyedropButton->setIconSize(QSize(32,32));
     ui->MirrorButton->setIcon(QIcon(":/Icon/Resources/Mirror Icon.png"));
     ui->MirrorButton->setIconSize(QSize(32,32));
+
+    //ColorPickerDefaultSetUp
+    QColor col = Model::instance->getColor();
+    if(col.isValid()) {
+        QString qss = QString("background-color: %1").arg(col.name());
+        ui->ColorButton->setStyleSheet(qss);
+    }
+
+
+    ui->ColorButton->update();
 }
 
 ToolSection::~ToolSection()
@@ -33,5 +44,17 @@ void ToolSection::on_EyedropButton_toggled(bool checked)
 void ToolSection::on_MirrorButton_toggled(bool checked)
 {
     Model::instance->setMirroring(checked);
+}
+
+
+void ToolSection::on_ColorButton_clicked()
+{
+    QColor newColor = QColorDialog::getColor(Qt::white, this);
+    if(newColor.isValid()) {
+        Model::instance->setColor(newColor);
+        Model::instance->setStoredColor(newColor);
+        QString qss = QString("background-color: %1").arg(newColor.name());
+        ui->ColorButton->setStyleSheet(qss);
+    }
 }
 

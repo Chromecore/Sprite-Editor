@@ -38,10 +38,11 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
 
     // Change color to transparent to erase with right click
     if(event->button()==Qt::RightButton){
+        Model::instance->setStoredColor(Model::instance->getColor());
         Model::instance->setColor(Qt::transparent);
     }
     else{
-        Model::instance->setColor(Qt::black);
+        Model::instance->setColor(Model::instance->getStoredColor());
     }
 }
 

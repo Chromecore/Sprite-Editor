@@ -17,6 +17,7 @@ Model::Model(QObject *parent) : QObject(parent)
     startingMap->fill(Qt::transparent);
     pixmaps.push_back(startingMap);
     currentColor = Qt::black;
+    storedColor = currentColor;
     currentImageIndex = 0;
     previewIndex = 0;
     mirroring = false;
@@ -53,6 +54,16 @@ void Model::setColor(QColor color)
 QColor Model::getColor()
 {
     return currentColor;
+}
+
+void Model::setStoredColor(QColor color)
+{
+    storedColor = color;
+}
+
+QColor Model::getStoredColor()
+{
+    return storedColor;
 }
 
 void Model::setFPS(int fps)
