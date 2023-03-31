@@ -1,5 +1,6 @@
 #include "toolsection.h"
 #include "ui_toolsection.h"
+#include "model.h"
 
 ToolSection::ToolSection(QWidget *parent) :
     QWidget(parent),
@@ -25,12 +26,12 @@ ToolSection::~ToolSection()
 
 void ToolSection::on_EyedropButton_toggled(bool checked)
 {
-    //Change enumerator to eyedropper. Once clicked, change to pen tool.
+    Model::instance->setEyedropActive(checked);
 }
 
 
 void ToolSection::on_MirrorButton_toggled(bool checked)
 {
-    //When drawing, determine if mirror bool is active, determine where to draw
+    Model::instance->setMirroring(checked);
 }
 

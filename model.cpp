@@ -19,6 +19,8 @@ Model::Model(QObject *parent) : QObject(parent)
     currentColor = Qt::black;
     currentImageIndex = 0;
     previewIndex = 0;
+    mirroring = false;
+
 }
 
 void Model::init(){
@@ -123,4 +125,25 @@ QPixmap Model::getNextPreview()
     previewIndex++;
     previewIndex = previewIndex % pixmaps.size();
     return *pixmaps[previewIndex];
+}
+
+
+bool Model::getMirroring()
+{
+    return mirroring;
+}
+
+void Model::setMirroring(bool is)
+{
+    mirroring = is;
+}
+
+bool Model::getEyedropActive()
+{
+    return eyedropActive;
+}
+
+void Model::setEyedropActive(bool is)
+{
+    eyedropActive = is;
 }

@@ -23,6 +23,8 @@ private:
     int spriteSize; // size of canvas
     int currentImageIndex = 0; // current index of the image in canvas
     int previewIndex;
+    bool mirroring; // If pen strokes are mirrored
+    bool eyedropActive; // If eye drop tool is being used
 public:
     explicit Model(QObject *parent = nullptr);
 
@@ -40,8 +42,13 @@ public:
     bool isOnionSkin();
     void isOnionSkin(bool is);
     int getSpriteSize();
+    bool getMirroring();
+    bool getEyedropActive();
     void setSpriteSize(int size);
     void setCurrentIndex(int i);
+    void setMirroring(bool is);
+    void setEyedropActive(bool is);
+
     void saveFile();
     void addFrame();
     bool removeFrame();
