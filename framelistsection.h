@@ -27,6 +27,7 @@ public slots:
 
 private slots:
     void spriteSizeComboBoxIndexChanged(int index);
+    void updateCurPixmap();
 
 private:
     Ui::FrameListSection *ui;

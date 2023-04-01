@@ -66,6 +66,11 @@ FrameListSection::FrameListSection(QWidget *parent) :
             &QComboBox::currentIndexChanged,
             this,
             &FrameListSection::spriteSizeComboBoxIndexChanged);
+
+    connect(Model::instance,
+            &Model::updatedCurrentPixmap,
+            this,
+            &FrameListSection::updateCurPixmap);
 }
 
 FrameListSection::~FrameListSection()
@@ -164,5 +169,10 @@ void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
 
     layout->addWidget(clickLabel);
     frames.push_back(clickLabel);
+}
+
+void FrameListSection::updateCurPixmap() {
+    int index = Model::instance->getCurrentIndex();
+    frames.at(index)->setPixmap(Model::instance->getPixmap()->scaled(120, 120));
 }
 

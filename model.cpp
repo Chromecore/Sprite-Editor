@@ -92,6 +92,8 @@ int Model::getSpriteSize()
     return spriteSize;
 }
 
+// Changes the size of the sprite canvas. Must only be called
+// if there is one frame
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
@@ -108,6 +110,10 @@ void Model::setSpriteSize(int size)
 void Model::setCurrentIndex(int i)
 {
     currentImageIndex = i;
+}
+
+int Model::getCurrentIndex() {
+    return currentImageIndex;
 }
 
 void Model::saveFile()

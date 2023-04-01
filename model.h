@@ -49,6 +49,7 @@ public:
     bool getEyedropActive();
     void setSpriteSize(int size);
     void setCurrentIndex(int i);
+    int getCurrentIndex();
     void setMirroring(bool is);
     void setEyedropActive(bool is);
     void saveFile();
