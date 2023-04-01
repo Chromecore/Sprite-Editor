@@ -23,6 +23,5 @@ public:
 
 private:
     Ui::MainWindow *ui;
-//    int canvasSize;
 };
 #endif // MAINWINDOW_H

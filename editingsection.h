@@ -33,6 +33,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent *event);
     void paintEvent(QPaintEvent *);
+    void changedFrame();
 };
 
 #endif // EDITINGSECTION_H

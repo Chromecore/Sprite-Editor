@@ -110,6 +110,8 @@ void Model::setSpriteSize(int size)
 void Model::setCurrentIndex(int i)
 {
     currentImageIndex = i;
+
+    emit currentIndexChanged();
 }
 
 int Model::getCurrentIndex() {
@@ -126,6 +128,8 @@ void Model::addFrame()
     QPixmap* newFrame = new QPixmap(spriteSize, spriteSize);
     newFrame->fill(Qt::transparent);
     pixmaps.push_back(newFrame);
+
+    setCurrentIndex(pixmaps.size() - 1);
 }
 
 // Returns true if a frame was removed, false otherwise
@@ -138,6 +142,11 @@ bool Model::removeFrame()
     QPixmap* removed = pixmaps.at(pixmaps.size() - 1);
     pixmaps.pop_back();
     delete removed;
+
+    if (currentImageIndex == (int)pixmaps.size()) {
+        setCurrentIndex(pixmaps.size() - 1);
+    }
+
     return true;
 }
 

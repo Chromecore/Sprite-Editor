@@ -16,6 +16,11 @@ EditingSection::EditingSection(QWidget *parent) :
     ui(new Ui::EditingSection)
 {
     ui->setupUi(this);
+
+    connect(Model::instance,
+            &Model::currentIndexChanged,
+            this,
+            &EditingSection::changedFrame);
 }
 
 EditingSection::~EditingSection()
@@ -30,6 +35,10 @@ void EditingSection::paintEvent(QPaintEvent *) {
     if(currentPixmap == nullptr) return;
 
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
+}
+
+void EditingSection::changedFrame() {
+    repaint();
 }
 
 void EditingSection::mousePressEvent(QMouseEvent* event) {
