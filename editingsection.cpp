@@ -106,6 +106,10 @@ void EditingSection::getPixelColor(QPoint eventPoint)
     QColor extractedColor = currentImage.pixel(x,y);
     Model::instance->setColor(extractedColor);
     Model::instance->setStoredColor(extractedColor);
-    emit Model::instance->eyeDropToolUsed();
+    Model::instance->setEyedropActive(false);
 
+    //Emit signals to update Tool Section UI in order to unpress Eyedrop Button and change Color Button's color
+    emit Model::instance->eyedropToolSetButtonPressed(false);
+    QString qss = QString("background-color: %1").arg(Model::instance->getColor().name());
+    emit Model::instance->eyedropToolSetNewColor(qss);
 }

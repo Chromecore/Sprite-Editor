@@ -14,7 +14,6 @@ class ToolSection : public QWidget
 public:
     explicit ToolSection(QWidget *parent = nullptr);
     ~ToolSection();
-    void eyedropperUsed();
 
 
 private slots:

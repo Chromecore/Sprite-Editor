@@ -25,10 +25,24 @@ ToolSection::ToolSection(QWidget *parent) :
         QString qss = QString("background-color: %1").arg(col.name());
         ui->ColorButton->setStyleSheet(qss);
     }
-
-
     ui->ColorButton->update();
+
+    connect(Model::instance,
+        &Model::eyedropToolSetButtonPressed,
+        ui->EyedropButton,
+        &QPushButton::setChecked
+        );
+
+    connect(Model::instance,
+        &Model::eyedropToolSetNewColor,
+        ui->ColorButton,
+        &QPushButton::setStyleSheet
+        );
+
 }
+
+
+
 
 ToolSection::~ToolSection()
 {
@@ -59,9 +73,13 @@ void ToolSection::on_ColorButton_clicked()
     }
 }
 
+/*
 void ToolSection::eyedropperUsed(){
     Model::instance->setEyedropActive(false);
-    //ui->EyedropButton->setDown(false);
+    ui->EyedropButton->setDown(false);
     QString qss = QString("background-color: %1").arg(Model::instance->getColor().name());
-    //ui->ColorButton->setStyleSheet(qss);
+    ui->ColorButton->setStyleSheet(qss);
 }
+*/
+
+

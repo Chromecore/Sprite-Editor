@@ -57,7 +57,9 @@ public:
     QPixmap getNextPreview();
 signals:
     void updatedCurrentPixmap();
-    void eyeDropToolUsed();
+    void eyedropToolSetButtonPressed(bool pressed);
+    void eyedropToolSetNewColor(QString newColor);
+
 };
 
 #endif // MODEL_H

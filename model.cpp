@@ -5,7 +5,6 @@ A7: Sprite Editor Implementation
 */
 
 #include "model.h"
-#include "toolsection.h"
 #include <QPainter>
 #include <qDebug>
 
