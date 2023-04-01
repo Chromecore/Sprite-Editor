@@ -42,8 +42,6 @@ ToolSection::ToolSection(QWidget *parent) :
 }
 
 
-
-
 ToolSection::~ToolSection()
 {
     delete ui;
@@ -72,14 +70,3 @@ void ToolSection::on_ColorButton_clicked()
         ui->ColorButton->setStyleSheet(qss);
     }
 }
-
-/*
-void ToolSection::eyedropperUsed(){
-    Model::instance->setEyedropActive(false);
-    ui->EyedropButton->setDown(false);
-    QString qss = QString("background-color: %1").arg(Model::instance->getColor().name());
-    ui->ColorButton->setStyleSheet(qss);
-}
-*/
-
-
