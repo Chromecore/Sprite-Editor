@@ -12,8 +12,7 @@ public:
     explicit ClickableLabel(QWidget* parent = Q_NULLPTR, Qt::WindowFlags = Qt::WindowFlags());
     ~ClickableLabel();
 
-signals:
-    void clicked();
+    int index;
 
 protected:
     void mousePressEvent(QMouseEvent* event);

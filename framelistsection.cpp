@@ -36,6 +36,7 @@ FrameListSection::FrameListSection(QWidget *parent) :
     vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
 
     for (QPixmap* pixmap : pixmaps) {
+//    for (uint i = 0; i < pixmaps.size(); i++) {
         ClickableLabel* clickLabel = new ClickableLabel;
         clickLabel->setMinimumSize(100, 100);
         clickLabel->setFixedSize(120, 120);
@@ -45,6 +46,7 @@ FrameListSection::FrameListSection(QWidget *parent) :
 
         layout->addWidget(clickLabel);
         frames.push_back(clickLabel);
+        clickLabel->index = frames.size() - 1;
     }
 
     if (frames.empty()) {
@@ -112,6 +114,7 @@ void FrameListSection::addFrame() {
 
     layout->addWidget(clickLabel);
     frames.push_back(clickLabel);
+    clickLabel->index = frames.size() - 1;
 
     ui->removeFrameButton->setEnabled(true);
     ui->spriteSizeComboBox->setDisabled(true);
