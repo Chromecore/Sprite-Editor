@@ -120,7 +120,11 @@ int Model::getCurrentIndex() {
 
 void Model::saveFile()
 {
-
+    qDebug() << "Save File";
+}
+void Model::loadFile()
+{
+    qDebug() << "Load File";
 }
 
 void Model::addFrame()
