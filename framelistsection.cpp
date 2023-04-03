@@ -21,7 +21,7 @@ FrameListSection::FrameListSection(QWidget *parent) :
     scrollArea->setWidgetResizable(true);
 
     QSize sectionSize(this->size());
-    sectionSize.setHeight(sectionSize.height() - 90);
+    sectionSize.setHeight(sectionSize.height() - 100);
     scrollArea->setFixedSize(sectionSize);
 
     widget = new QWidget;

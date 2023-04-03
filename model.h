@@ -62,6 +62,7 @@ signals:
     void eyedropToolSetButtonPressed(bool pressed);
     void eyedropToolSetNewColor(QString newColor);
     void currentIndexChanged();
+    void sizeChanged();
 };
 
 #endif // MODEL_H

@@ -20,7 +20,12 @@ EditingSection::EditingSection(QWidget *parent) :
     connect(Model::instance,
             &Model::currentIndexChanged,
             this,
-            &EditingSection::changedFrame);
+            &EditingSection::repaintSection);
+
+    connect(Model::instance,
+            &Model::sizeChanged,
+            this,
+            &EditingSection::repaintSection);
 }
 
 EditingSection::~EditingSection()
@@ -37,7 +42,7 @@ void EditingSection::paintEvent(QPaintEvent *) {
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
-void EditingSection::changedFrame() {
+void EditingSection::repaintSection() {
     repaint();
 }
 

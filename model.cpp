@@ -105,6 +105,7 @@ void Model::setSpriteSize(int size)
     delete oldPixmap;
 
     pixmaps.push_back(newcurrentPixmap);
+    emit sizeChanged();
 }
 
 void Model::setCurrentIndex(int i)
