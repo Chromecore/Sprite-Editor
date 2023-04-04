@@ -5,7 +5,7 @@
 #include <QTime>
 #include <QPixmap>
 #include <QTimer>
-#include "clickablelabel.h"
+#include <QLabel>
 
 namespace Ui {
 class PreviewSection;
@@ -22,11 +22,12 @@ public:
 
 private slots:
     void on_horizontalSlider_valueChanged(int value);
+    void onPreviewSectionClicked();
 
 private:
     Ui::PreviewSection *ui;
     QTimer timer;
-    ClickableLabel clickLabel;
+    QLabel label;
 };
 
 #endif // PREVIEWSECTION_H
