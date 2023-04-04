@@ -55,7 +55,8 @@ public:
     void loadFile();
     void addFrame();
     bool removeFrame();
-    QPixmap getNextPreview();
+
+    QPixmap* getNextPreview();
     void toggleOnionSkin();
     bool getOnionSkin();
 signals:

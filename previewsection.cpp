@@ -3,6 +3,8 @@
 #include <QTimer>
 #include <QDebug>
 #include "model.h"
+#include <QPainter>
+
 #include <QLabel>
 
 PreviewSection::PreviewSection(QWidget *parent) :
@@ -25,17 +27,15 @@ PreviewSection::PreviewSection(QWidget *parent) :
     label.setGeometry(0, 0, 150, 150);
     label.setFrameStyle(1);
 
-    timer.setTimerType(Qt::PreciseTimer);
-
     showImage();
 }
 
 void PreviewSection::showImage()
 {
-    int fps = Model::instance -> getFPS() + 1;
-    QPixmap pixmap = Model::instance -> getNextPreview();
 
-    label.setPixmap(pixmap.scaled(150, 150));
+    int fps = Model::instance -> getFPS()  ;
+    QPixmap* pixmap = Model::instance -> getNextPreview();
+    label.setPixmap(pixmap -> scaled(150, 150));
     timer.singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 

@@ -39,12 +39,6 @@ EditingSection::~EditingSection()
 }
 
 void EditingSection::paintEvent(QPaintEvent *) {
-    // paint current frame
-    QPainter painter(this);
-    QPixmap* currentPixmap = Model::instance->getPixmap();
-    if(currentPixmap == nullptr) return;
-    painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
-
     if (Model::instance->getOnionSkin() && Model::instance->getCurrentIndex() > 0){
         // paint onion skin frame
         QPainter onionPainter(this);
@@ -53,6 +47,12 @@ void EditingSection::paintEvent(QPaintEvent *) {
         if(onionPixmap == nullptr) return;
         onionPainter.drawPixmap(0, 0, onionPixmap->scaled(size().width(), size().height()));
     }
+
+    // paint current frame
+    QPainter painter(this);
+    QPixmap* currentPixmap = Model::instance->getPixmap();
+    if(currentPixmap == nullptr) return;
+    painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
 void EditingSection::repaintSection() {
