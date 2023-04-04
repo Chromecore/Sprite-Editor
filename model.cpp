@@ -7,6 +7,10 @@ A7: Sprite Editor Implementation
 #include "model.h"
 #include <QPainter>
 #include <qDebug>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 Model* Model::instance;
 
@@ -122,6 +126,50 @@ int Model::getCurrentIndex() {
 void Model::saveFile()
 {
     qDebug() << "Save File";
+    QJsonObject spriteObject;
+    spriteObject.insert("height", QJsonValue::fromVariant(spriteSize));
+    spriteObject.insert("width", QJsonValue::fromVariant(spriteSize));
+    spriteObject.insert("numberOfFrames", QJsonValue::fromVariant(pixmaps.size()));
+
+    QJsonObject framesObject;
+
+    for (int i = 0; i < (int)pixmaps.size(); i++) {
+        QJsonArray frame;
+        QPixmap* pixmap = pixmaps.at(i);
+        QImage image = pixmap->toImage();
+
+        for (int row = 0; row < spriteSize; row++) {
+            QJsonArray rowArray;
+
+            for (int col = 0; col < spriteSize; col++) {
+                double pixelWidth = image.size().width() / spriteSize;
+                double pixelHeight = image.size().height() / spriteSize;
+                int xCoord = row * pixelWidth + (pixelWidth / 2);
+                int yCoord = col * pixelHeight + (pixelHeight / 2);
+
+                QColor color = image.pixel(xCoord, yCoord);
+
+                QJsonArray pointRGBA;
+                pointRGBA.push_back(QJsonValue::fromVariant(color.red()));
+                pointRGBA.push_back(QJsonValue::fromVariant(color.green()));
+                pointRGBA.push_back(QJsonValue::fromVariant(color.blue()));
+                pointRGBA.push_back(QJsonValue::fromVariant(color.alpha()));
+
+//                qDebug() << color.rgba();
+                rowArray.push_back(QJsonValue::fromVariant(pointRGBA));
+            }
+
+            frame.push_back(QJsonValue::fromVariant(rowArray));
+        }
+
+        framesObject.insert(tr("frame%0").arg(i), frame);
+    }
+
+    spriteObject.insert("frames", framesObject);
+
+    QJsonDocument doc(spriteObject);
+    qDebug() << doc.toJson();
+
 }
 void Model::loadFile()
 {
