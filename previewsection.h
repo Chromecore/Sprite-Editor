@@ -2,9 +2,10 @@
 #define PREVIEWSECTION_H
 
 #include <QWidget>
-#include "Model.h"
 #include <QTime>
 #include <QPixmap>
+#include <QTimer>
+#include "clickablelabel.h"
 
 namespace Ui {
 class PreviewSection;
@@ -24,6 +25,8 @@ private slots:
 
 private:
     Ui::PreviewSection *ui;
+    QTimer timer;
+    ClickableLabel clickLabel;
 };
 
 #endif // PREVIEWSECTION_H

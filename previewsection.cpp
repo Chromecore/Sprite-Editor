@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QDebug>
 #include "model.h"
+#include "clickablelabel.h"
 
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
@@ -14,18 +15,24 @@ PreviewSection::PreviewSection(QWidget *parent) :
 //                    &Model::updatedCurrentPixmap,
 //                    this,
 //                    &PreviewSection::test);
+    clickLabel.setParent(this);
+    clickLabel.setGeometry(0, 0, 150, 150);
+    clickLabel.setFrameStyle(1);
 
-    int fps = Model::instance -> getFPS() + 1;
-    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
+    timer.setTimerType(Qt::PreciseTimer);
+
+//    int fps = Model::instance -> getFPS() + 1;
+//    timer.singleShot(1000/fps, this, &PreviewSection::showImage);
+    showImage();
 }
 
 void PreviewSection::showImage()
 {
-    int fps = Model::instance -> getFPS() +1 ;
+    int fps = Model::instance -> getFPS() + 1;
     QPixmap pixmap = Model::instance -> getNextPreview();
-    ui->myLabel->setPixmap(pixmap);
-    ui->myLabel->setMask(pixmap.mask());
-    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
+
+    clickLabel.setPixmap(pixmap.scaled(150, 150));
+    timer.singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 
 PreviewSection::~PreviewSection()
