@@ -56,7 +56,7 @@ public:
     void loadFile();
     void addFrame();
     bool removeFrame();
-    QPixmap getNextPreview();
+    QPixmap* getNextPreview();
 signals:
     void updatedCurrentPixmap();
     void eyedropToolSetButtonPressed(bool pressed);

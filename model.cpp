@@ -23,6 +23,7 @@ Model::Model(QObject *parent) : QObject(parent)
     currentColor = Qt::black;
     storedColor = currentColor;
     currentImageIndex = 0;
+    fps = 0;
     previewIndex = 0;
     mirroring = false;
     eyedropActive = false;
@@ -78,7 +79,7 @@ void Model::setFPS(int fps)
 
 int Model::getFPS()
 {
-    return fps;
+    return fps + 1;
 }
 
 bool Model::isOnionSkin()
@@ -203,11 +204,13 @@ bool Model::removeFrame()
     return true;
 }
 
-QPixmap Model::getNextPreview()
+QPixmap* Model::getNextPreview()
 {
     previewIndex++;
     previewIndex = previewIndex % pixmaps.size();
-    return *pixmaps[previewIndex];
+    if (pixmaps.empty())
+        return nullptr;
+    return pixmaps[previewIndex];
 }
 
 

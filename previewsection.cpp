@@ -2,7 +2,8 @@
 #include "ui_previewsection.h"
 #include <QTimer>
 #include <QDebug>
-#include "model.h"
+#include <QPainter>
+
 
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
@@ -15,17 +16,23 @@ PreviewSection::PreviewSection(QWidget *parent) :
 //                    this,
 //                    &PreviewSection::test);
 
-    int fps = Model::instance -> getFPS() + 1;
+    int fps = Model::instance -> getFPS() ;
     QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 
 void PreviewSection::showImage()
 {
-    int fps = Model::instance -> getFPS() +1 ;
-    QPixmap pixmap = Model::instance -> getNextPreview();
-    ui->myLabel->setPixmap(pixmap);
-    ui->myLabel->setMask(pixmap.mask());
-    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
+
+    int fps = Model::instance -> getFPS()  ;
+    //QPixmap pixmap = Model::instance -> getNextPreview();
+    QPainter painter(this);
+    QPixmap* pixmap = Model::instance->getNextPreview();
+
+    if(pixmap)
+        painter.drawTiledPixmap(0, 0,150,150, *pixmap);
+    QTimer timer;
+    timer.setTimerType(Qt::PreciseTimer);
+    timer.singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 
 PreviewSection::~PreviewSection()
