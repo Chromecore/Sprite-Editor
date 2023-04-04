@@ -142,12 +142,7 @@ void Model::saveFile()
             QJsonArray rowArray;
 
             for (int col = 0; col < spriteSize; col++) {
-                double pixelWidth = image.size().width() / spriteSize;
-                double pixelHeight = image.size().height() / spriteSize;
-                int xCoord = row * pixelWidth + (pixelWidth / 2);
-                int yCoord = col * pixelHeight + (pixelHeight / 2);
-
-                QColor color = image.pixel(xCoord, yCoord);
+                QColor color = image.pixelColor(col, row);
 
                 QJsonArray pointRGBA;
                 pointRGBA.push_back(QJsonValue::fromVariant(color.red()));
@@ -155,7 +150,6 @@ void Model::saveFile()
                 pointRGBA.push_back(QJsonValue::fromVariant(color.blue()));
                 pointRGBA.push_back(QJsonValue::fromVariant(color.alpha()));
 
-//                qDebug() << color.rgba();
                 rowArray.push_back(QJsonValue::fromVariant(pointRGBA));
             }
 
@@ -168,7 +162,7 @@ void Model::saveFile()
     spriteObject.insert("frames", framesObject);
 
     QJsonDocument doc(spriteObject);
-    qDebug() << doc.toJson();
+//    qDebug() << doc.toJson();
 
 }
 void Model::loadFile()
