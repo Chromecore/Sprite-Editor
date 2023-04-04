@@ -2,5 +2,7 @@
     <qresource prefix="/Icon">
         <file>Resources/Eyedropper Icon.png</file>
         <file>Resources/Mirror Icon.png</file>
+        <file>Resources/Onion Icon.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

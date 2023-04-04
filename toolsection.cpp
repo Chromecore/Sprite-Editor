@@ -12,12 +12,15 @@ ToolSection::ToolSection(QWidget *parent) :
     //Button set up
     ui->EyedropButton->setCheckable(true);
     ui->MirrorButton->setCheckable(true);
+    ui->OnionSkinButton->setCheckable(true);
 
     //Icon set up
     ui->EyedropButton->setIcon(QIcon(":/Icon/Resources/Eyedropper Icon.png"));
     ui->EyedropButton->setIconSize(QSize(32,32));
     ui->MirrorButton->setIcon(QIcon(":/Icon/Resources/Mirror Icon.png"));
     ui->MirrorButton->setIconSize(QSize(32,32));
+    ui->OnionSkinButton->setIcon(QIcon(":/Icon/Resources/Onion Icon.png"));
+    ui->OnionSkinButton->setIconSize(QSize(32,32));
 
     //ColorPickerDefaultSetUp
     QColor col = Model::instance->getColor();
@@ -39,6 +42,11 @@ ToolSection::ToolSection(QWidget *parent) :
         &QPushButton::setStyleSheet
         );
 
+    connect(ui->OnionSkinButton,
+        &QPushButton::clicked,
+        Model::instance,
+        &Model::toggleOnionSkin
+        );
 }
 
 

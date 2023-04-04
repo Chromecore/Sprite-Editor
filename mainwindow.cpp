@@ -4,6 +4,7 @@ CS 3505
 A7: Sprite Editor Implementation
 */
 
+#include "model.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
