@@ -2,8 +2,10 @@
 #include "ui_previewsection.h"
 #include <QTimer>
 #include <QDebug>
+#include "model.h"
 #include <QPainter>
 
+#include <QLabel>
 
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
@@ -15,23 +17,19 @@ PreviewSection::PreviewSection(QWidget *parent) :
 //                    &Model::updatedCurrentPixmap,
 //                    this,
 //                    &PreviewSection::test);
+    label.setParent(this);
+    label.setGeometry(0, 0, 150, 150);
+    label.setFrameStyle(1);
 
-    int fps = Model::instance -> getFPS() ;
-    QTimer::singleShot(1000/fps, this, &PreviewSection::showImage);
+    showImage();
 }
 
 void PreviewSection::showImage()
 {
 
     int fps = Model::instance -> getFPS()  ;
-    //QPixmap pixmap = Model::instance -> getNextPreview();
-    QPainter painter(this);
-    QPixmap* pixmap = Model::instance->getNextPreview();
-
-    if(pixmap)
-        painter.drawTiledPixmap(0, 0,150,150, *pixmap);
-    QTimer timer;
-    timer.setTimerType(Qt::PreciseTimer);
+    QPixmap* pixmap = Model::instance -> getNextPreview();
+    label.setPixmap(pixmap -> scaled(150, 150));
     timer.singleShot(1000/fps, this, &PreviewSection::showImage);
 }
 
@@ -45,3 +43,6 @@ void PreviewSection::on_horizontalSlider_valueChanged(int value)
     Model::instance->setFPS(value);
 }
 
+void PreviewSection::onPreviewSectionClicked() {
+
+}

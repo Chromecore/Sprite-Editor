@@ -26,6 +26,11 @@ EditingSection::EditingSection(QWidget *parent) :
             &Model::sizeChanged,
             this,
             &EditingSection::repaintSection);
+
+    connect(Model::instance,
+            &Model::onionChanged,
+            this,
+            &EditingSection::repaintSection);
 }
 
 EditingSection::~EditingSection()
@@ -34,11 +39,19 @@ EditingSection::~EditingSection()
 }
 
 void EditingSection::paintEvent(QPaintEvent *) {
-    QPainter painter(this);
+    if (Model::instance->getOnionSkin() && Model::instance->getCurrentIndex() > 0){
+        // paint onion skin frame
+        QPainter onionPainter(this);
+        onionPainter.setCompositionMode(QPainter::CompositionMode_Overlay);
+        QPixmap* onionPixmap = Model::instance->getPixmap(Model::instance->getCurrentIndex() - 1);
+        if(onionPixmap == nullptr) return;
+        onionPainter.drawPixmap(0, 0, onionPixmap->scaled(size().width(), size().height()));
+    }
 
+    // paint current frame
+    QPainter painter(this);
     QPixmap* currentPixmap = Model::instance->getPixmap();
     if(currentPixmap == nullptr) return;
-
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
@@ -59,7 +72,6 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
         if(event->button()==Qt::RightButton) Model::instance->setColor(Qt::transparent);
         else Model::instance->setColor(Model::instance->getStoredColor());
     }
-
 }
 
 void EditingSection::mouseReleaseEvent(QMouseEvent*){

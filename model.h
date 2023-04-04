@@ -20,12 +20,12 @@ private:
     QColor currentColor; // current drawing color
     QColor storedColor; // last color stored internally to be referenced as needed
     int fps;          // how fast sprite moves in preview
-    bool onionSkin; // overlay previous frame of sprite
     int spriteSize; // size of canvas
     int currentImageIndex = 0; // current index of the image in canvas
     int previewIndex;
     bool mirroring; // If pen strokes are mirrored
     bool eyedropActive; // If eye drop tool is being used
+    bool onionSkinActive;
 public:
     explicit Model(QObject *parent = nullptr);
 
@@ -35,6 +35,7 @@ public:
 
     void setCurrentPixmap(QPixmap* pixmap);
     QPixmap* getPixmap();
+    QPixmap* getPixmap(int index);
     std::vector<QPixmap*>& getPixmaps();
     void setColor(QColor color);
     void setStoredColor(QColor color);
@@ -42,8 +43,6 @@ public:
     QColor getStoredColor();
     void setFPS(int fps);
     int getFPS();
-    bool isOnionSkin();
-    void isOnionSkin(bool is);
     int getSpriteSize();
     bool getMirroring();
     bool getEyedropActive();
@@ -56,13 +55,17 @@ public:
     void loadFile();
     void addFrame();
     bool removeFrame();
+
     QPixmap* getNextPreview();
+    void toggleOnionSkin();
+    bool getOnionSkin();
 signals:
     void updatedCurrentPixmap();
     void eyedropToolSetButtonPressed(bool pressed);
     void eyedropToolSetNewColor(QString newColor);
     void currentIndexChanged();
     void sizeChanged();
+    void onionChanged();
 };
 
 #endif // MODEL_H

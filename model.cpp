@@ -27,7 +27,7 @@ Model::Model(QObject *parent) : QObject(parent)
     previewIndex = 0;
     mirroring = false;
     eyedropActive = false;
-
+    onionSkinActive = false;
 }
 
 void Model::init(){
@@ -45,6 +45,14 @@ QPixmap* Model::getPixmap()
         return nullptr;
 
     return pixmaps.at(currentImageIndex);
+}
+
+QPixmap* Model::getPixmap(int index)
+{
+    if (pixmaps.empty())
+        return nullptr;
+
+    return pixmaps.at(index);
 }
 
 vector<QPixmap*>& Model::getPixmaps()
@@ -80,16 +88,6 @@ void Model::setFPS(int fps)
 int Model::getFPS()
 {
     return fps + 1;
-}
-
-bool Model::isOnionSkin()
-{
-    return onionSkin;
-}
-
-void Model::isOnionSkin(bool is)
-{
-    onionSkin = is;
 }
 
 int Model::getSpriteSize()
@@ -143,12 +141,7 @@ void Model::saveFile()
             QJsonArray rowArray;
 
             for (int col = 0; col < spriteSize; col++) {
-                double pixelWidth = image.size().width() / spriteSize;
-                double pixelHeight = image.size().height() / spriteSize;
-                int xCoord = row * pixelWidth + (pixelWidth / 2);
-                int yCoord = col * pixelHeight + (pixelHeight / 2);
-
-                QColor color = image.pixel(xCoord, yCoord);
+                QColor color = image.pixelColor(col, row);
 
                 QJsonArray pointRGBA;
                 pointRGBA.push_back(QJsonValue::fromVariant(color.red()));
@@ -156,7 +149,6 @@ void Model::saveFile()
                 pointRGBA.push_back(QJsonValue::fromVariant(color.blue()));
                 pointRGBA.push_back(QJsonValue::fromVariant(color.alpha()));
 
-//                qDebug() << color.rgba();
                 rowArray.push_back(QJsonValue::fromVariant(pointRGBA));
             }
 
@@ -169,7 +161,7 @@ void Model::saveFile()
     spriteObject.insert("frames", framesObject);
 
     QJsonDocument doc(spriteObject);
-    qDebug() << doc.toJson();
+//    qDebug() << doc.toJson();
 
 }
 void Model::loadFile()
@@ -234,3 +226,11 @@ void Model::setEyedropActive(bool is)
     eyedropActive = is;
 }
 
+bool Model::getOnionSkin(){
+    return onionSkinActive;
+}
+
+void Model::toggleOnionSkin(){
+    onionSkinActive = !onionSkinActive;
+    emit onionChanged();
+}

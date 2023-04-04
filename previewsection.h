@@ -2,9 +2,10 @@
 #define PREVIEWSECTION_H
 
 #include <QWidget>
-#include "Model.h"
 #include <QTime>
 #include <QPixmap>
+#include <QTimer>
+#include <QLabel>
 
 namespace Ui {
 class PreviewSection;
@@ -21,9 +22,12 @@ public:
 
 private slots:
     void on_horizontalSlider_valueChanged(int value);
+    void onPreviewSectionClicked();
 
 private:
     Ui::PreviewSection *ui;
+    QTimer timer;
+    QLabel label;
 };
 
 #endif // PREVIEWSECTION_H
