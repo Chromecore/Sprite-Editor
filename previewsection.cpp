@@ -15,6 +15,12 @@ PreviewSection::PreviewSection(QWidget *parent) :
 //                    &Model::updatedCurrentPixmap,
 //                    this,
 //                    &PreviewSection::test);
+
+    connect(ui->horizontalSlider,
+            &QSlider::sliderMoved,
+            this,
+            &PreviewSection::onFPSSliderChanged);
+
     label.setParent(this);
     label.setGeometry(0, 0, 150, 150);
     label.setFrameStyle(1);
@@ -43,6 +49,10 @@ void PreviewSection::on_horizontalSlider_valueChanged(int value)
     Model::instance->setFPS(value);
 }
 
-void PreviewSection::onPreviewSectionClicked() {
+void PreviewSection::onFullSizeClicked() {
 
+}
+
+void PreviewSection::onFPSSliderChanged(int value) {
+    Model::instance->setFPS(value);
 }

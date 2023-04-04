@@ -17,10 +17,13 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
-     <width>131</width>
-     <height>20</height>
+     <y>190</y>
+     <width>130</width>
+     <height>10</height>
     </rect>
+   </property>
+   <property name="maximum">
+    <number>59</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>

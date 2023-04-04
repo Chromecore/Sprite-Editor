@@ -22,7 +22,8 @@ public:
 
 private slots:
     void on_horizontalSlider_valueChanged(int value);
-    void onPreviewSectionClicked();
+    void onFullSizeClicked();
+    void onFPSSliderChanged(int value);
 
 private:
     Ui::PreviewSection *ui;
