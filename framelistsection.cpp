@@ -172,6 +172,7 @@ void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
 
     layout->addWidget(clickLabel);
     frames.push_back(clickLabel);
+    clickLabel->index = frames.size() - 1;
 }
 
 void FrameListSection::updateCurPixmap() {
