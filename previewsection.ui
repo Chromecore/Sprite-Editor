@@ -16,9 +16,9 @@
   <widget class="QSlider" name="horizontalSlider">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>50</x>
      <y>190</y>
-     <width>130</width>
+     <width>90</width>
      <height>10</height>
     </rect>
    </property>
@@ -27,6 +27,32 @@
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>160</y>
+     <width>140</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Show Full Size Preview</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>185</y>
+     <width>40</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>FPS:</string>
    </property>
   </widget>
  </widget>

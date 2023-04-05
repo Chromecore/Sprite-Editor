@@ -15,6 +15,8 @@ A7: Sprite Editor Implementation
 #include <QJsonValue>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QFileDialog>
+#include <QMessageBox>
 
 Model* Model::instance;
 
@@ -177,6 +179,58 @@ void Model::saveFile(QString fileLocation)
 void Model::loadFile()
 {
     qDebug() << "Load File";
+
+
+//    QString filename = QFileDialog::getOpenFileName(nullptr, tr("open file"), QString(), tr(".ssp"), nullptr, QFileDialog::Options());
+    QString filepath = QFileDialog::getOpenFileName();
+    qDebug() << filepath;
+
+    if (!filepath.endsWith(tr(".ssp"))) {
+        emit invalidFile();
+        return;
+    }
+
+    QFile fileObj(filepath);
+
+    if (!fileObj.open(QIODevice::ReadOnly)) {
+        emit invalidFile();
+        return;
+    }
+
+    QTextStream fileText(&fileObj);
+    QString jsonString = fileText.readAll();
+    fileObj.close();
+    QByteArray jsonBytes = jsonString.toLocal8Bit();
+
+    auto jsonDoc = QJsonDocument::fromJson(jsonBytes);
+
+    if (jsonDoc.isNull() || !jsonDoc.isObject()) {
+        emit invalidFile();
+        return;
+    }
+
+    QJsonObject jsonObj = jsonDoc.object();
+
+    if (jsonObj.isEmpty()) {
+        emit invalidFile();
+        return;
+    }
+
+    QVariantMap map = jsonObj.toVariantMap();
+
+    if (!map.contains(tr("width")) || !map.contains(tr("height"))) {
+        emit invalidFile();
+        return;
+    }
+    QVariant widthVar = map.value(tr("width"));
+    int width = widthVar.toInt();
+    QVariant heightVar = map.value(tr("height"));
+    int height = heightVar.toInt();
+    if (width != height) {
+        emit invalidFile();
+        return;
+    }
+
 }
 
 void Model::addFrame()

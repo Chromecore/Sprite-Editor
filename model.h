@@ -26,6 +26,7 @@ private:
     bool mirroring; // If pen strokes are mirrored
     bool eyedropActive; // If eye drop tool is being used
     bool onionSkinActive;
+
 public:
     explicit Model(QObject *parent = nullptr);
 
@@ -66,6 +67,7 @@ signals:
     void currentIndexChanged();
     void sizeChanged();
     void onionChanged();
+    void invalidFile();
 };
 
 #endif // MODEL_H
