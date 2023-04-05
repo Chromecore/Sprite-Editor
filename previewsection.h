@@ -19,6 +19,7 @@ public:
     explicit PreviewSection(QWidget *parent = nullptr);
     ~PreviewSection();
     void showImage();
+//    void showImageFullSize();
 
 private slots:
     void on_horizontalSlider_valueChanged(int value);
@@ -29,6 +30,8 @@ private:
     Ui::PreviewSection *ui;
     QTimer timer;
     QLabel label;
+//    QLabel fullSizeLabel;
+//    int fullSizeFrameIndex;
 };
 
 #endif // PREVIEWSECTION_H

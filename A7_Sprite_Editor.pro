@@ -12,6 +12,7 @@ SOURCES += \
     clickablelabel.cpp \
     editingsection.cpp \
     framelistsection.cpp \
+    fullsizepreview.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     clickablelabel.h \
     editingsection.h \
     framelistsection.h \
+    fullsizepreview.h \
     mainwindow.h \
     model.h \
     previewsection.h \
@@ -30,6 +32,7 @@ HEADERS += \
 FORMS += \
     editingsection.ui \
     framelistsection.ui \
+    fullsizepreview.ui \
     mainwindow.ui \
     previewsection.ui \
     toolsection.ui

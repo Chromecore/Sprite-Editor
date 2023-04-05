@@ -4,8 +4,10 @@
 #include <QDebug>
 #include "model.h"
 #include <QPainter>
-
+#include <QDialog>
 #include <QLabel>
+#include <QMessageBox>
+#include "fullsizepreview.h"
 
 PreviewSection::PreviewSection(QWidget *parent) :
     QWidget(parent),
@@ -13,26 +15,27 @@ PreviewSection::PreviewSection(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    connect(Model::instance,
-//                    &Model::updatedCurrentPixmap,
-//                    this,
-//                    &PreviewSection::test);
-
     connect(ui->horizontalSlider,
             &QSlider::sliderMoved,
             this,
             &PreviewSection::onFPSSliderChanged);
 
+    connect(ui->pushButton,
+            &QPushButton::clicked,
+            this,
+            &PreviewSection::onFullSizeClicked);
+
     label.setParent(this);
     label.setGeometry(0, 0, 150, 150);
     label.setFrameStyle(1);
+
+    timer.setTimerType(Qt::PreciseTimer);
 
     showImage();
 }
 
 void PreviewSection::showImage()
 {
-
     int fps = Model::instance -> getFPS()  ;
     QPixmap* pixmap = Model::instance -> getNextPreview();
     label.setPixmap(pixmap -> scaled(150, 150));
@@ -50,7 +53,7 @@ void PreviewSection::on_horizontalSlider_valueChanged(int value)
 }
 
 void PreviewSection::onFullSizeClicked() {
-
+    FullSizePreview fullSizePreview(this->parentWidget());
 }
 
 void PreviewSection::onFPSSliderChanged(int value) {

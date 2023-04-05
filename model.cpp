@@ -132,7 +132,6 @@ int Model::getCurrentIndex() {
 
 void Model::saveFile(QString fileLocation)
 {
-    qDebug() << "Save File";
     QJsonObject spriteObject;
     spriteObject.insert("height", QJsonValue::fromVariant(spriteSize));
     spriteObject.insert("width", QJsonValue::fromVariant(spriteSize));
@@ -169,7 +168,6 @@ void Model::saveFile(QString fileLocation)
     spriteObject.insert("frames", framesObject);
 
     QJsonDocument doc(spriteObject);
-//    qDebug() << doc.toJson();
 
 
     QString fileName = fileLocation;
@@ -181,12 +179,7 @@ void Model::saveFile(QString fileLocation)
 
 void Model::loadFile()
 {
-    qDebug() << "Load File";
-
-
-//    QString filename = QFileDialog::getOpenFileName(nullptr, tr("open file"), QString(), tr(".ssp"), nullptr, QFileDialog::Options());
     QString filepath = QFileDialog::getOpenFileName();
-    qDebug() << filepath;
 
     if (!filepath.endsWith(tr(".ssp"))) {
         emit invalidFile();
