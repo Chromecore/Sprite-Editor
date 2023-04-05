@@ -31,6 +31,11 @@ EditingSection::EditingSection(QWidget *parent) :
             &Model::onionChanged,
             this,
             &EditingSection::repaintSection);
+
+    connect(Model::instance,
+            &Model::newFrameList,
+            this,
+            &EditingSection::repaintSection);
 }
 
 EditingSection::~EditingSection()

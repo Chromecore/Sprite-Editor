@@ -35,7 +35,6 @@ private:
     QVBoxLayout* layout;
     QWidget* widget;
     vector<ClickableLabel*> frames;
-    QLabel* noFramesLabel;
 
 
 

@@ -76,6 +76,11 @@
      <string>8 x 8</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>4 x 4</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

@@ -39,14 +39,17 @@ void MainWindow::on_actionSave_triggered()
     }
 }
 
-
 void MainWindow::on_actionLoad_triggered()
 {
     Model::instance->loadFile();
+}
+
 void MainWindow::showFileError() {
-    QMessageBox::critical(this, tr("Invalid file"), tr("The selected file was not a valid .ssp file. "
-                                                       "Files must be a JSON object with equal int values for height and width, "
-                                                       "a numberOfFrames int value, and a frames object containing at least "
-                                                       "one frame."));
+    QString message;
+    message.fromStdString("The selected file was not a valid .ssp file.\n"
+                          "Files msut be a JSON object with equal int values for height and width.\n"
+                          "The object must have a numberOfFrames int value and a frames object containing at least one frame.\n"
+                          "Valid width/height values are 4, 8, 16, and 32.");
+    QMessageBox::critical(this, tr("Invalid file"), message);
 }
 

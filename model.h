@@ -68,6 +68,8 @@ signals:
     void sizeChanged();
     void onionChanged();
     void invalidFile();
+    void frameRemoved();
+    void newFrameList();
 };
 
 #endif // MODEL_H

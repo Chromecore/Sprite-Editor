@@ -32,28 +32,9 @@ FrameListSection::FrameListSection(QWidget *parent) :
     layout->setAlignment(Qt::AlignTop);
 
     ui->removeFrameButton->setDisabled(true);
-
-//    vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
-
-//    for (QPixmap* pixmap : pixmaps) {
-//        ClickableLabel* clickLabel = new ClickableLabel;
-//        clickLabel->setMinimumSize(100, 100);
-//        clickLabel->setFixedSize(120, 120);
-//        clickLabel->setPixmap(pixmap->scaled(120, 120));
-//        clickLabel->setLineWidth(1);
-//        clickLabel->setFrameStyle(1);
-
-//        layout->addWidget(clickLabel);
-//        frames.push_back(clickLabel);
-//        clickLabel->index = frames.size() - 1;
-//    }
-
-//    if (frames.empty()) {
-//        noFramesLabel = new QLabel(tr("No frames"));
-//        layout->addWidget(noFramesLabel);
-//    }
     setupNewFrameList();
 
+    // connect calls:
     connect(ui->addFrameButton,
             &QPushButton::clicked,
             this,
@@ -79,6 +60,11 @@ FrameListSection::FrameListSection(QWidget *parent) :
             this,
             &FrameListSection::updateButtons);
 
+//    connect(Model::instance,
+//            &Model::frameRemoved,
+//            this,
+//            &FrameListSection::setupNewFrameList);
+
     connect(Model::instance,
             &Model::newFrameList,
             this,
@@ -95,8 +81,8 @@ void FrameListSection::addFrame() {
     Model::instance->addFrame();
 
     if (frames.size() == 0) {
-        layout->removeWidget(noFramesLabel);
-        delete noFramesLabel;
+//        layout->removeWidget(noFramesLabel);
+//        delete noFramesLabel;
 
         switch (ui->spriteSizeComboBox->currentIndex()) {
             case 0:
@@ -107,6 +93,9 @@ void FrameListSection::addFrame() {
                 break;
             case 2:
                 Model::instance->setSpriteSize(8);
+                break;
+            case 3:
+                Model::instance->setSpriteSize(4);
                 break;
             default:
                 Model::instance->setSpriteSize(32);
@@ -143,7 +132,6 @@ void FrameListSection::removeFrame() {
     updateButtons();
 }
 
-
 void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
 {
     switch (index) {
@@ -155,6 +143,9 @@ void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
             break;
         case 2:
             Model::instance->setSpriteSize(8);
+            break;
+        case 3:
+            Model::instance->setSpriteSize(4);
             break;
         default:
             Model::instance->setSpriteSize(32);
@@ -196,8 +187,15 @@ void FrameListSection::updateButtons() {
 }
 
 void FrameListSection::setupNewFrameList() {
+
+    for (int i = (int)frames.size() - 1; i >= 0; i--) {
+        ClickableLabel* frame = frames.at(i);
+        layout->removeWidget(frame);
+        frames.pop_back();
+        delete frame;
+    }
+
     vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
-    frames.clear();
 
     for (QPixmap* pixmap : pixmaps) {
         ClickableLabel* clickLabel = new ClickableLabel;
@@ -212,10 +210,13 @@ void FrameListSection::setupNewFrameList() {
         clickLabel->index = frames.size() - 1;
     }
 
-    if (frames.empty()) {
-        noFramesLabel = new QLabel(tr("No frames"));
-        layout->addWidget(noFramesLabel);
-    }
+//    if (frames.empty()) {
+//        noFramesLabel = new QLabel(tr("No frames"));
+//        layout->addWidget(noFramesLabel);
+//    }
+//    else {
+
+//    }
 
     updateButtons();
 }

@@ -178,6 +178,7 @@ void Model::saveFile(QString fileLocation)
         jsonFile.write(doc.toJson());
 
 }
+
 void Model::loadFile()
 {
     qDebug() << "Load File";
@@ -240,9 +241,13 @@ void Model::loadFile()
         emit invalidFile();
         return;
     }
+    if (!(width == 4 || width == 8 || width == 16 || width == 32)) {
+        emit invalidFile();
+        return;
+    }
 
     // empty out the pixmaps vector
-    for (int i = 0; i < (int)pixmaps.size(); i++) {
+    for (int i = (int)pixmaps.size() - 1; i >= 0; i--) {
         removeFrame();
     }
 
@@ -286,6 +291,7 @@ void Model::loadFile()
     }
 
     emit newFrameList();
+    setCurrentIndex(0);
 }
 
 void Model::addFrame()
@@ -308,7 +314,7 @@ bool Model::removeFrame()
     pixmaps.pop_back();
     delete removed;
 
-    if (currentImageIndex == (int)pixmaps.size()) {
+    if (currentImageIndex >= (int)pixmaps.size()) {
         setCurrentIndex(pixmaps.size() - 1);
     }
 
