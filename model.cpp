@@ -6,6 +6,10 @@ A7: Sprite Editor Implementation
 
 #include "model.h"
 #include <QPainter>
+
+#include <QFileDialog>
+#include <QMessageBox>
+
 #include <qDebug>
 #include <QJsonObject>
 #include <QJsonValue>
@@ -122,7 +126,7 @@ int Model::getCurrentIndex() {
     return currentImageIndex;
 }
 
-void Model::saveFile()
+void Model::saveFile(QString fileLocation)
 {
     qDebug() << "Save File";
     QJsonObject spriteObject;
@@ -162,6 +166,12 @@ void Model::saveFile()
 
     QJsonDocument doc(spriteObject);
 //    qDebug() << doc.toJson();
+
+
+    QString fileName = fileLocation;
+    QFile jsonFile(fileName);
+        jsonFile.open(QFile::WriteOnly);
+        jsonFile.write(doc.toJson());
 
 }
 void Model::loadFile()
