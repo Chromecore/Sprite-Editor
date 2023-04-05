@@ -22,6 +22,11 @@ public:
     ~MainWindow();
     void showFileError();
 
+private slots:
+    void on_actionSave_triggered();
+
+    void on_actionLoad_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

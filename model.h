@@ -52,7 +52,7 @@ public:
     int getCurrentIndex();
     void setMirroring(bool is);
     void setEyedropActive(bool is);
-    void saveFile();
+    void saveFile(QString fileLocation);
     void loadFile();
     void addFrame();
     bool removeFrame();
