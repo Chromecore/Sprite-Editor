@@ -117,6 +117,7 @@ void Model::setSpriteSize(int size)
     addFrame();
 //    pixmaps.push_back(newcurrentPixmap);
     emit sizeChanged();
+    emit newSpriteSize(spriteSize);
 }
 
 void Model::setCurrentIndex(int i)

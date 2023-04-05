@@ -70,6 +70,7 @@ signals:
     void invalidFile();
     void frameRemoved();
     void newFrameList();
+    void newSpriteSize(int newSize);
 };
 
 #endif // MODEL_H

@@ -28,6 +28,7 @@ public slots:
     void spriteSizeComboBoxIndexChanged(int index);
     void updateCurPixmap();
     void setupNewFrameList();
+    void updateSizeComboBox(int newSize);
 
 private:
     Ui::FrameListSection *ui;

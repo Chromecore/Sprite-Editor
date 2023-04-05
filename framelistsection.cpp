@@ -69,6 +69,11 @@ FrameListSection::FrameListSection(QWidget *parent) :
             &Model::newFrameList,
             this,
             &FrameListSection::setupNewFrameList);
+
+    connect(Model::instance,
+            &Model::newSpriteSize,
+            this,
+            &FrameListSection::updateSizeComboBox);
 }
 
 FrameListSection::~FrameListSection()
@@ -219,5 +224,25 @@ void FrameListSection::setupNewFrameList() {
 //    }
 
     updateButtons();
+}
+
+void FrameListSection::updateSizeComboBox(int newSize) {
+    switch (newSize) {
+        case 32:
+            ui->spriteSizeComboBox->setCurrentIndex(0);
+            break;
+        case 16:
+            ui->spriteSizeComboBox->setCurrentIndex(1);
+            break;
+        case 8:
+            ui->spriteSizeComboBox->setCurrentIndex(2);
+            break;
+        case 4:
+            ui->spriteSizeComboBox->setCurrentIndex(3);
+            break;
+        default:
+            ui->spriteSizeComboBox->setCurrentIndex(0);
+            break;
+    }
 }
 
