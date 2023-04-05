@@ -24,7 +24,7 @@ public:
 private:
     bool mousePressed;
     Ui::EditingSection *ui;
-    /// colors a pixel at a point of an event if the event happened inside the pixmap
+    // colors a pixel at a point of an event if the event happened inside the pixmap
     void colorPixel(QPoint eventPoint);
     void getPixelColor(QPoint eventPoint);
 
