@@ -97,19 +97,21 @@ int Model::getSpriteSize()
     return spriteSize;
 }
 
-// Changes the size of the sprite canvas. Must only be called
-// if there is one frame
+// Changes the size of the sprite canvas.
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
-    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
-    newcurrentPixmap->fill(Qt::transparent);
+//    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
+//    newcurrentPixmap->fill(Qt::transparent);
 
-    QPixmap* oldPixmap = pixmaps.at(pixmaps.size() - 1);
-    pixmaps.pop_back();
-    delete oldPixmap;
+    if (pixmaps.size() == 1) {
+        QPixmap* oldPixmap = pixmaps.at(pixmaps.size() - 1);
+        pixmaps.pop_back();
+        delete oldPixmap;
+    }
 
-    pixmaps.push_back(newcurrentPixmap);
+    addFrame();
+//    pixmaps.push_back(newcurrentPixmap);
     emit sizeChanged();
 }
 
@@ -208,19 +210,72 @@ void Model::loadFile()
 
     QVariantMap map = jsonObj.toVariantMap();
 
-    if (!map.contains(tr("width")) || !map.contains(tr("height"))) {
-        emit invalidFile();
-        return;
-    }
-    QVariant widthVar = map.value(tr("width"));
-    int width = widthVar.toInt();
-    QVariant heightVar = map.value(tr("height"));
-    int height = heightVar.toInt();
-    if (width != height) {
+    if (!map.contains(tr("width")) || !map.contains(tr("height")) ||
+        !map.contains(tr("numberOfFrames")) || !map.contains(tr("frames"))) {
         emit invalidFile();
         return;
     }
 
+    QVariant widthVar = map.value(tr("width"));
+    int width = widthVar.toInt();
+    QVariant heightVar = map.value(tr("height"));
+    int height = heightVar.toInt();
+    QVariant numFramesVar = map.value(tr("numberOfFrames"));
+    int numFrames = numFramesVar.toInt();
+    QVariant framesVar = map.value(tr("frames"));
+    QJsonObject framesObj = framesVar.toJsonObject();
+    QVariantMap framesMap = framesObj.toVariantMap();
+
+    if (width != height || numFrames <= 0) {
+        emit invalidFile();
+        return;
+    }
+
+    // empty out the pixmaps vector
+    for (int i = 0; i < (int)pixmaps.size(); i++) {
+        removeFrame();
+    }
+
+    setSpriteSize(width);
+
+    for (int i = 0; i < numFrames; i++) {
+        if (!framesMap.contains(tr("frame%0").arg(i))) {
+            emit invalidFile();
+
+            if (pixmaps.empty()) {
+                addFrame();
+                emit newFrameList();
+            }
+            return;
+        }
+
+        if (i > 0) { // First frame is already added when setSpriteSize is called
+            addFrame();
+        }
+
+        QVariant frameArrayVar = framesMap.value(tr("frame%0").arg(i));
+        QJsonArray frameArray = frameArrayVar.toJsonArray();
+        QPixmap* pixmap = pixmaps.at(i);
+
+        for (int row = 0; row < height; row++) {
+            QJsonArray rowArray = frameArray.at(row).toArray();
+
+            for (int col = 0; col < width; col++) {
+                QJsonArray pointArray = rowArray.at(col).toArray();
+                QColor color;
+                color.setRed(pointArray.at(0).toInt());
+                color.setGreen(pointArray.at(1).toInt());
+                color.setBlue(pointArray.at(2).toInt());
+                color.setAlpha(pointArray.at(3).toInt());
+
+                QImage temp = pixmap->toImage();
+                temp.setPixelColor(col, row, color);
+                pixmap->convertFromImage(temp);
+            }
+        }
+    }
+
+    emit newFrameList();
 }
 
 void Model::addFrame()
@@ -247,6 +302,7 @@ bool Model::removeFrame()
         setCurrentIndex(pixmaps.size() - 1);
     }
 
+    emit frameRemoved();
     return true;
 }
 

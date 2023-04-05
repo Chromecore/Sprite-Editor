@@ -33,26 +33,26 @@ FrameListSection::FrameListSection(QWidget *parent) :
 
     ui->removeFrameButton->setDisabled(true);
 
-    vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
+//    vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
 
-    for (QPixmap* pixmap : pixmaps) {
-//    for (uint i = 0; i < pixmaps.size(); i++) {
-        ClickableLabel* clickLabel = new ClickableLabel;
-        clickLabel->setMinimumSize(100, 100);
-        clickLabel->setFixedSize(120, 120);
-        clickLabel->setPixmap(pixmap->scaled(120, 120));
-        clickLabel->setLineWidth(1);
-        clickLabel->setFrameStyle(1);
+//    for (QPixmap* pixmap : pixmaps) {
+//        ClickableLabel* clickLabel = new ClickableLabel;
+//        clickLabel->setMinimumSize(100, 100);
+//        clickLabel->setFixedSize(120, 120);
+//        clickLabel->setPixmap(pixmap->scaled(120, 120));
+//        clickLabel->setLineWidth(1);
+//        clickLabel->setFrameStyle(1);
 
-        layout->addWidget(clickLabel);
-        frames.push_back(clickLabel);
-        clickLabel->index = frames.size() - 1;
-    }
+//        layout->addWidget(clickLabel);
+//        frames.push_back(clickLabel);
+//        clickLabel->index = frames.size() - 1;
+//    }
 
-    if (frames.empty()) {
-        noFramesLabel = new QLabel(tr("No frames"));
-        layout->addWidget(noFramesLabel);
-    }
+//    if (frames.empty()) {
+//        noFramesLabel = new QLabel(tr("No frames"));
+//        layout->addWidget(noFramesLabel);
+//    }
+    setupNewFrameList();
 
     connect(ui->addFrameButton,
             &QPushButton::clicked,
@@ -73,6 +73,16 @@ FrameListSection::FrameListSection(QWidget *parent) :
             &Model::updatedCurrentPixmap,
             this,
             &FrameListSection::updateCurPixmap);
+
+    connect(Model::instance,
+            &Model::frameRemoved,
+            this,
+            &FrameListSection::updateButtons);
+
+    connect(Model::instance,
+            &Model::newFrameList,
+            this,
+            &FrameListSection::setupNewFrameList);
 }
 
 FrameListSection::~FrameListSection()
@@ -116,8 +126,7 @@ void FrameListSection::addFrame() {
     frames.push_back(clickLabel);
     clickLabel->index = frames.size() - 1;
 
-    ui->removeFrameButton->setEnabled(true);
-    ui->spriteSizeComboBox->setDisabled(true);
+    updateButtons();
 }
 
 void FrameListSection::removeFrame() {
@@ -131,12 +140,7 @@ void FrameListSection::removeFrame() {
     frames.pop_back();
     delete frame;
 
-    if (frames.size() == 1) {
-//        noFramesLabel = new QLabel(tr("No frames"));
-//        layout->addWidget(noFramesLabel);
-        ui->removeFrameButton->setDisabled(true);
-        ui->spriteSizeComboBox->setEnabled(true);
-    }
+    updateButtons();
 }
 
 
@@ -178,5 +182,41 @@ void FrameListSection::spriteSizeComboBoxIndexChanged(int index)
 void FrameListSection::updateCurPixmap() {
     int index = Model::instance->getCurrentIndex();
     frames.at(index)->setPixmap(Model::instance->getPixmap()->scaled(120, 120));
+}
+
+void FrameListSection::updateButtons() {
+    if (frames.size() <= 1) {
+        ui->removeFrameButton->setDisabled(true);
+        ui->spriteSizeComboBox->setEnabled(true);
+    }
+    else {
+        ui->removeFrameButton->setEnabled(true);
+        ui->spriteSizeComboBox->setDisabled(true);
+    }
+}
+
+void FrameListSection::setupNewFrameList() {
+    vector<QPixmap*>& pixmaps = Model::instance->getPixmaps();
+    frames.clear();
+
+    for (QPixmap* pixmap : pixmaps) {
+        ClickableLabel* clickLabel = new ClickableLabel;
+        clickLabel->setMinimumSize(100, 100);
+        clickLabel->setFixedSize(120, 120);
+        clickLabel->setPixmap(pixmap->scaled(120, 120));
+        clickLabel->setLineWidth(1);
+        clickLabel->setFrameStyle(1);
+
+        layout->addWidget(clickLabel);
+        frames.push_back(clickLabel);
+        clickLabel->index = frames.size() - 1;
+    }
+
+    if (frames.empty()) {
+        noFramesLabel = new QLabel(tr("No frames"));
+        layout->addWidget(noFramesLabel);
+    }
+
+    updateButtons();
 }
 

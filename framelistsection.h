@@ -24,10 +24,10 @@ public:
 public slots:
     void addFrame();
     void removeFrame();
-
-private slots:
+    void updateButtons();
     void spriteSizeComboBoxIndexChanged(int index);
     void updateCurPixmap();
+    void setupNewFrameList();
 
 private:
     Ui::FrameListSection *ui;
@@ -36,6 +36,8 @@ private:
     QWidget* widget;
     vector<ClickableLabel*> frames;
     QLabel* noFramesLabel;
+
+
 
 };
 
