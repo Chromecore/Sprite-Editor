@@ -66,11 +66,6 @@ FrameListSection::FrameListSection(QWidget *parent) :
             this,
             &FrameListSection::updateButtons);
 
-//    connect(Model::instance,
-//            &Model::frameRemoved,
-//            this,
-//            &FrameListSection::setupNewFrameList);
-
     connect(Model::instance,
             &Model::newFrameList,
             this,
@@ -92,9 +87,6 @@ void FrameListSection::addFrame() {
     Model::instance->addFrame();
 
     if (frames.size() == 0) {
-//        layout->removeWidget(noFramesLabel);
-//        delete noFramesLabel;
-
         switch (ui->spriteSizeComboBox->currentIndex()) {
             case 0:
                 Model::instance->setSpriteSize(32);
@@ -220,14 +212,6 @@ void FrameListSection::setupNewFrameList() {
         frames.push_back(clickLabel);
         clickLabel->index = frames.size() - 1;
     }
-
-//    if (frames.empty()) {
-//        noFramesLabel = new QLabel(tr("No frames"));
-//        layout->addWidget(noFramesLabel);
-//    }
-//    else {
-
-//    }
 
     updateButtons();
 }
