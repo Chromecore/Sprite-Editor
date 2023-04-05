@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #include "fullsizepreview.h"
 #include "ui_fullsizepreview.h"
 #include "model.h"

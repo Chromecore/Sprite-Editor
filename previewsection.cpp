@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #include "previewsection.h"
 #include "ui_previewsection.h"
 #include <QTimer>
@@ -45,11 +51,6 @@ void PreviewSection::showImage()
 PreviewSection::~PreviewSection()
 {
     delete ui;
-}
-
-void PreviewSection::on_horizontalSlider_valueChanged(int value)
-{
-    Model::instance->setFPS(value);
 }
 
 void PreviewSection::onFullSizeClicked() {
