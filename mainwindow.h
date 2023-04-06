@@ -20,11 +20,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    //Shows error dialog box when file loaded improperly.
     void showFileError();
 
 private slots:
+    //Creates file explorer window to allocate file location and name.
     void on_actionSave_triggered();
 
+    //Opens file explorer to load .ssp file and set up current workspace to match file specifications.
     void on_actionLoad_triggered();
 
 private:

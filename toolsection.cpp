@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #include "toolsection.h"
 #include "ui_toolsection.h"
 #include "model.h"
@@ -70,6 +76,7 @@ void ToolSection::on_MirrorButton_toggled(bool checked)
 
 void ToolSection::on_ColorButton_clicked()
 {
+    //Creates color dialog box for user to select color.
     QColor newColor = QColorDialog::getColor(Qt::white, this);
     if(newColor.isValid()) {
         Model::instance->setColor(newColor);

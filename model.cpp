@@ -105,8 +105,6 @@ int Model::getSpriteSize()
 void Model::setSpriteSize(int size)
 {
     spriteSize = size;
-//    QPixmap* newcurrentPixmap = new QPixmap(spriteSize, spriteSize);
-//    newcurrentPixmap->fill(Qt::transparent);
 
     if (pixmaps.size() == 1) {
         QPixmap* oldPixmap = pixmaps.at(pixmaps.size() - 1);
@@ -115,7 +113,6 @@ void Model::setSpriteSize(int size)
     }
 
     addFrame();
-//    pixmaps.push_back(newcurrentPixmap);
     emit sizeChanged();
     emit newSpriteSize(spriteSize);
 }
