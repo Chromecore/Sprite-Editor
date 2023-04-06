@@ -17,6 +17,7 @@ EditingSection::EditingSection(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // setup the connections between the model
     connect(Model::instance,
             &Model::currentIndexChanged,
             this,
@@ -43,9 +44,10 @@ EditingSection::~EditingSection()
     delete ui;
 }
 
-void EditingSection::paintEvent(QPaintEvent *) {
+void EditingSection::paintEvent(QPaintEvent *)
+{
+    // paint the onion skin frame if enabled
     if (Model::instance->getOnionSkin() && Model::instance->getCurrentIndex() > 0){
-        // paint onion skin frame
         QPainter onionPainter(this);
         onionPainter.setCompositionMode(QPainter::CompositionMode_Overlay);
         QPixmap* onionPixmap = Model::instance->getPixmap(Model::instance->getCurrentIndex() - 1);
@@ -60,11 +62,13 @@ void EditingSection::paintEvent(QPaintEvent *) {
     painter.drawPixmap(0, 0, currentPixmap->scaled(size().width(), size().height()));
 }
 
-void EditingSection::repaintSection() {
+void EditingSection::repaintSection()
+{
     repaint();
 }
 
-void EditingSection::mousePressEvent(QMouseEvent* event) {
+void EditingSection::mousePressEvent(QMouseEvent* event)
+{
     mousePressed = true;
     // colors the first pixel before the mouse stars moving
     if (Model::instance->getEyedropActive()) {
@@ -79,26 +83,23 @@ void EditingSection::mousePressEvent(QMouseEvent* event) {
     }
 }
 
-void EditingSection::mouseReleaseEvent(QMouseEvent*){
+void EditingSection::mouseReleaseEvent(QMouseEvent*)
+{
     mousePressed = false;
 }
 
-void EditingSection::mouseMoveEvent(QMouseEvent *event){
+void EditingSection::mouseMoveEvent(QMouseEvent *event)
+{
     if(!mousePressed) return;
     if (!Model::instance->getEyedropActive()) colorPixel(event->pos());
 }
 
-void EditingSection::colorPixel(QPoint eventPoint){
-    // find the x and y pixel coordinates of the point
-    double pixelWidth = this->size().width() / Model::instance->getSpriteSize();
-    double pixelHeight = this->size().height() / Model::instance->getSpriteSize();
-    int x = (eventPoint.x()) / pixelWidth;
-    int y = (eventPoint.y()) / pixelHeight;
+void EditingSection::colorPixel(QPoint eventPoint)
+{
+    QPoint pixelPoint = pointToPixelCoords(eventPoint);
+    if(pixelPoint.x() == INFINITY) return;
 
-    bool withinImageBounds = x < Model::instance->getSpriteSize() && x >= 0 && y < Model::instance->getSpriteSize() && y >= 0;
-    if(!withinImageBounds) return;
-
-    // update the pixel color using a painter
+    // create the painter for the pixmap
     QPixmap* currentPixmap = Model::instance->getPixmap();
     if(currentPixmap == nullptr) return;
     QPainter painter(currentPixmap);
@@ -107,34 +108,31 @@ void EditingSection::colorPixel(QPoint eventPoint){
     if(Model::instance->getColor() == Qt::transparent){
         painter.setCompositionMode(QPainter::CompositionMode_Clear);
     }
+
+    // draw the pixel
     painter.setPen(Model::instance->getColor());
-    painter.drawPoint(x, y);
+    painter.drawPoint(pixelPoint.x(), pixelPoint.y());
+
     if (Model::instance->getMirroring()){
         // essentially, gets opposite coord of X axis by subtracting current x position from sprite size.
-        painter.drawPoint(Model::instance->getSpriteSize()-x, y);
+        painter.drawPoint(Model::instance->getSpriteSize() - pixelPoint.x(), pixelPoint.y());
     }
-    emit Model::instance->updatedCurrentPixmap();
 
+    emit Model::instance->updatedCurrentPixmap();
     repaint();
 }
 
 void EditingSection::getPixelColor(QPoint eventPoint)
 {
-    // like before, find the x and y pixel coordinates of the point
-    double pixelWidth = this->size().width() / Model::instance->getSpriteSize();
-    double pixelHeight = this->size().height() / Model::instance->getSpriteSize();
-    int x = (eventPoint.x()) / pixelWidth;
-    int y = (eventPoint.y()) / pixelHeight;
-
-    bool withinImageBounds = x < Model::instance->getSpriteSize() && x >= 0 && y < Model::instance->getSpriteSize() && y >= 0;
-    if(!withinImageBounds) return;
+    QPoint pixelPoint = pointToPixelCoords(eventPoint);
+    if(pixelPoint.x() == INFINITY) return;
 
     // get the model's pixmap, convert it to an image
     QPixmap* currentPixmap = Model::instance->getPixmap();
     if(currentPixmap == nullptr) return;
     QImage currentImage = currentPixmap->toImage();
 
-    QColor extractedColor = currentImage.pixel(x,y);
+    QColor extractedColor = currentImage.pixel(pixelPoint.x(),pixelPoint.y());
     Model::instance->setColor(extractedColor);
     Model::instance->setStoredColor(extractedColor);
     Model::instance->setEyedropActive(false);
@@ -143,4 +141,18 @@ void EditingSection::getPixelColor(QPoint eventPoint)
     emit Model::instance->eyedropToolSetButtonPressed(false);
     QString qss = QString("background-color: %1").arg(Model::instance->getColor().name());
     emit Model::instance->eyedropToolSetNewColor(qss);
+}
+
+QPoint EditingSection::pointToPixelCoords(QPoint eventPoint)
+{
+    // find the x and y pixel coordinates of the point
+    double pixelWidth = this->size().width() / Model::instance->getSpriteSize();
+    double pixelHeight = this->size().height() / Model::instance->getSpriteSize();
+    int x = (eventPoint.x()) / pixelWidth;
+    int y = (eventPoint.y()) / pixelHeight;
+
+    bool withinImageBounds = x < Model::instance->getSpriteSize() && x >= 0 && y < Model::instance->getSpriteSize() && y >= 0;
+    if(!withinImageBounds) return QPoint(INFINITY, INFINITY);
+
+    return QPoint(x, y);
 }
