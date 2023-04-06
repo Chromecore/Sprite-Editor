@@ -13,6 +13,7 @@ namespace Ui {
 class ToolSection;
 }
 
+// handles switching between tools and activating them in the model
 class ToolSection : public QWidget
 {
     Q_OBJECT

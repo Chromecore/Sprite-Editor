@@ -13,6 +13,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+// Main window that holds the save and load functionality
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

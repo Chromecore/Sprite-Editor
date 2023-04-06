@@ -11,20 +11,29 @@ A7: Sprite Editor Implementation
 
 using std::vector;
 
+// Holds all the data and functions for the sprite editor
 class Model : public QObject
 {
     Q_OBJECT
 
 private:
-    vector<QPixmap*> pixmaps; // images that make up sprite
-    QColor currentColor; // current drawing color
-    QColor storedColor; // last color stored internally to be referenced as needed
-    int fps;          // how fast sprite moves in preview (frames per second)
-    int spriteSize; // size of canvas
-    int currentImageIndex = 0; // current index of the image in canvas
+    // images that make up sprite
+    vector<QPixmap*> pixmaps;
+    // current drawing color
+    QColor currentColor;
+    // last color stored internally to be referenced as needed
+    QColor storedColor;
+    // how fast sprite moves in preview (frames per second)
+    int fps;
+    // size of canvas
+    int spriteSize;
+    // current index of the image in canvas
+    int currentImageIndex = 0;
     int previewIndex;
-    bool mirroring; // If pen strokes are mirrored
-    bool eyedropActive; // If eye drop tool is being used
+    // If pen strokes are mirrored
+    bool mirroring;
+    // If eye drop tool is being used
+    bool eyedropActive;
     bool onionSkinActive;
 
 public:

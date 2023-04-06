@@ -12,7 +12,7 @@ A7: Sprite Editor Implementation
 namespace Ui {
 class EditingSection;
 }
-
+// Handles the editing of the current frame and allows for changing pixel color and getting pixel color
 class EditingSection : public QWidget
 {
     Q_OBJECT
