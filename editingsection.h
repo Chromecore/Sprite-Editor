@@ -26,7 +26,10 @@ private:
     Ui::EditingSection *ui;
     // colors a pixel at a point of an event if the event happened inside the pixmap
     void colorPixel(QPoint eventPoint);
+    // gets the current color of a pixel from the canvas based on an event point
     void getPixelColor(QPoint eventPoint);
+    // converts a point to the pixel coordinate system for the canvas
+    QPoint pointToPixelCoords(QPoint eventPoint);
 
 protected:
     void mousePressEvent(QMouseEvent* event);

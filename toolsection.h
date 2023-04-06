@@ -1,3 +1,9 @@
+/*
+Coleman Cook, Jack Koster, Jonathan Mercado, Tayin Wallace
+CS 3505
+A7: Sprite Editor Implementation
+*/
+
 #ifndef TOOLSECTION_H
 #define TOOLSECTION_H
 
